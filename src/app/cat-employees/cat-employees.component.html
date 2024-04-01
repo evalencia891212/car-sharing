@@ -1,0 +1,163 @@
+<div class="container" style="margin-top: 60px">
+
+  <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
+
+    <input type="hidden" name="employee_id" #employee_id="ngModel" [(ngModel)]="employe_service.selected_employee.employee_id">
+
+    <div class="row">
+
+      <div class="col-3">
+        <label for="employee_number">Numero empleado</label>
+      </div>
+
+      <div class="col-9">
+        
+        <div class="form-group">
+          <input id="employee_number" type="text" class="form-control" name="employee_number"
+          #employee_number="ngModel" [(ngModel)]="employe_service.selected_employee.employee_number"  />
+        </div>
+      </div>
+
+     
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-3">
+        <label for="employee_name">Nombre empleado</label>
+      </div>
+
+      <div class="col-9">
+       
+        <div class="form-group">
+          <input id="employee_name" type="text" class="form-control" name="name"
+          #name="ngModel" [(ngModel)]="employe_service.selected_employee.name"  />
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="last_name">Apellido Paterno</label>
+      </div>
+      <div class="col-9">
+        <input id="last_name" type="text" class="form-control" name="last_name"
+        #last_name="ngModel" [(ngModel)]="employe_service.selected_employee.last_name"  />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="mother_last_name">Apellido Materno</label>
+      </div>
+      <div class="col-9">
+        <input id="mother_last_name" type="text" class="form-control" name="mother_lastname"
+        #mother_lastname="ngModel" [(ngModel)]="employe_service.selected_employee.mother_lastname" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="street">Calle</label>
+      </div>
+      <div class="col-9">
+        <input id="street_name" type="text" class="form-control" name="street_name"
+        #street_name="ngModel" [(ngModel)]="employe_service.selected_employee.street_name"  />
+      </div>
+     
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="out_num">Numero Ext.</label>
+      </div>
+      <div class="col-9">
+        
+        <input id="out_num" type="text" class="form-control" name="outdoor_number"
+        #outdoor_number="ngModel" [(ngModel)]="employe_service.selected_employee.outdoor_number" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="int_num">Numero Int.</label>
+      </div>
+      <div class="col-9">
+        <input id="int_num" type="text" class="form-control" name="interior_number"
+        #interior_number="ngModel" [(ngModel)]="employe_service.selected_employee.interior_number"  />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="neighborhood">Colonia.</label>
+      </div>
+      <div class="col-9">
+        <input id="neighborhood" type="text" class="form-control" name="neighborhood"
+        #neighborhood="ngModel" [(ngModel)]="employe_service.selected_employee.neighborhood"  />
+      </div>
+
+    </div>
+
+     <div class="row">
+      <div class="col-3">
+        <label for="company_mail">Email Empresarial</label>
+      </div>
+      <div class="col-9">
+        <input id="company_mail" type="text" class="form-control" name="company_mail"
+        #company_mail="ngModel" [(ngModel)]="employe_service.selected_employee.company_mail" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-3">
+        <label for="personal_mail">Email Personal</label>
+      </div>
+      <div class="col-9">
+        <input id="personal_mail" type="text" class="form-control" name="personal_mail"
+        #personal_mail="ngModel" [(ngModel)]="employe_service.selected_employee.personal_mail" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <label for="locatio">Geo Localizacion</label>
+      </div>
+      <div class="col-9">
+        <input id="location" type="text" class="form-control"  name="location"
+        #location="ngModel" [(ngModel)]="employe_service.selected_employee.location" />
+      </div>
+    </div>
+   
+
+    <!-- <div class="row" style="margin-top: 30px;">
+    
+        <div class="col-12">
+          <button class="btn btn-primary" (click)="open(content)" type="submit" >
+            <i class="fas fa-plus-circle"></i> Guardar
+        </button>
+          <button type="button" class="btn btn-secondary">Limpiar</button>
+        </div>
+       
+    </div> -->
+  </form>
+
+    
+    
+   
+
+    <!-- <div class="row" style="margin-top: 30px;">
+      
+      <div class="col-12">
+        <app-employe-list [employees] = "employe_service.employee_list" [content]="content"></app-employe-list>
+      </div>
+
+     </div> -->
+
+    
+
+
+  </div>
+
+  

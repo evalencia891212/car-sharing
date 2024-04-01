@@ -1,0 +1,94 @@
+<div class="container" style="margin-top: 60px">
+
+    <form #modelForm="ngForm" (ngSubmit)="onSubmit(modelForm)">
+  
+      <input type="hidden" name="model_id" #model_id="ngModel" [(ngModel)]="models_service.selected_model.model_id">
+  
+      <div class="row">
+        <div class="col-3">
+          <label for="model_name">Modelo</label>
+        </div>
+  
+        <div class="col-9">
+          <div class="form-group">
+            <input id="model_name" type="text" class="form-control my-controll" name="model_name"
+            #model_name="ngModel" [(ngModel)]="models_service.selected_model.model_name" placeholder="Modelo" />
+          </div>
+        </div>  
+      </div>   
+     
+      <div class="row">
+
+        <div class="col-3">
+          <label for="model_year">Año</label>
+        </div>
+        <div class="col-9">
+          <div class="form-group">
+            <input id="model_year" type="text" class="form-control my-controll" name="model_year"
+            #model_year="ngModel" [(ngModel)]="models_service.selected_model.model_year" placeholder="Año"   />
+          </div>
+        </div>
+      </div>
+     
+
+      <div class="row">
+        <div class="col-3">
+          <label for="performance">Rendimiento</label>
+        </div>
+        <div class="col-9">
+          <div class="form-group">
+            <input id="performance" type="text" class="form-control my-controll" name="performance"
+            #performance="ngModel" [(ngModel)]="models_service.selected_model.performance" placeholder="Rendimiento"   />
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="row">
+        <div class="col-3">
+          <label for="pasenger_capability">Capacidad Pasajeros</label>
+        </div>
+        <div class="col-9">
+          <div class="form-group">
+            <input id="pasenger_capability" type="text" class="form-control my-controll" name="pasenger_capability"
+            #pasenger_capability="ngModel" [(ngModel)]="models_service.selected_model.pasenger_capability"  placeholder="Capacidad de Pasajeros"  />
+          </div>
+        </div>
+
+      </div>
+
+        
+      <div class="row">
+        <div class="col-3">
+          <label for="co2_emissions">Emisiones CO2</label>
+        </div>
+        <div class="col-9">
+            <div class="form-group">
+              <input id="co2_emissions" type="text" class="form-control my-controll" name="co2_emissions"
+              #co2_emissions="ngModel" [(ngModel)]="models_service.selected_model.co2_emissions"  placeholder="Emisiones CO2" />
+            </div>
+          </div>
+      </div>
+  
+      <div class="row" style="margin-top: 30px;">
+      
+          <div class="col-2">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-plus-circle"></i> Guardar
+          </button>
+            <button type="button" class="btn btn-secondary">Limpiar</button>
+          </div>
+         
+      </div>
+    </form>
+  
+  
+      <!-- <div class="row" style="margin-top: 30px;">
+        
+        <div class="col-12">
+          <app-models-list [models]="models_service.models_list"></app-models-list>
+        </div>
+  
+       </div> -->
+
+    </div>

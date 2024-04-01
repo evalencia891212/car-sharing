@@ -1,0 +1,63 @@
+
+
+
+<div class="container" style="margin-top: 60px">
+
+    <form #vehicleForm="ngForm" (ngSubmit)="onSubmit(vehicleForm)">
+  
+      <input type="hidden" name="vehicle_id" #vehicle_id="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.vehicle_id">
+  
+      <div class="row">
+  
+        <div class="col-3">
+          <label for="serial_number">Numero de Serie</label>
+          <div class="form-group">
+            <input id="serial_number" type="text" class="form-control" name="serial_number"
+            #employee_number="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.serial_number"  />
+          </div>
+        </div>
+  
+        <div class="col-3">
+          <label for="licence_plate">Placas de circulación </label>
+          <div class="form-group">
+            <input id="licence_plate" type="text" class="form-control" name="licence_plate"
+            #licence_plate="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.licence_plate"  />
+          </div>
+        </div>
+  
+        <div class="col-3">
+          <label for="model_search">Modelo</label>
+          <input id="model_search" type="text" class="form-control" name="model_search"
+          #model_search [(ngModel)]="selected_model"  />
+          <ul #modelSearchList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+            <li (click)='selectModel(model)' class="list-group-item"
+              *ngFor="let model of model_select_list">
+              <span>{{model.model_name}} - {{model.model_year}}</span>
+            </li>
+          </ul>
+        </div>
+  
+      </div>   
+  
+      <div class="row" style="margin-top: 30px;">
+      
+          <div class="col-2">
+            <button class="btn btn-primary" type="submit">
+              <i class="fas fa-plus-circle"></i> Guardar
+          </button>
+            <button type="button" class="btn btn-secondary">Limpiar</button>
+          </div>
+         
+      </div>
+    </form> 
+  
+  
+      <!-- <div class="row" style="margin-top: 30px;">
+        
+        <div class="col-12">
+          <app-vehicles-list [vehicles]="vehicle_service.vehicles_list"></app-vehicles-list>
+        </div>
+  
+       </div> -->
+
+    </div>
