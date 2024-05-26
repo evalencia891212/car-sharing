@@ -1,0 +1,20 @@
+<div class="container" style="margin-top: 60px">
+
+    <form #routesForm="ngForm">
+  
+      <input type="hidden" name="model_id" #model_id="ngModel" [(ngModel)]="route_service.selected_route.route_id">
+  
+      <div class="row">
+        <div class="col-3">
+          <label for="route_name">Ruta</label>
+        </div>
+  
+        <div class="col-9">
+          <div class="form-group">
+            <input id="route_name" type="text" class="form-control my-controll" name="route_name"
+            #route_name="ngModel" [(ngModel)]="route_service.selected_route.route_name" placeholder="Ruta" autocomplete="off" />
+          </div>
+        </div>  
+      </div>   
+    </form>
+    </div>

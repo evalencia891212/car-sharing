@@ -1,0 +1,56 @@
+<div class="row">
+      <div class="col-4">
+        <div ngbDropdown class="d-inline-block">
+			<button type="button" class="btn btn-outline-primary" id="dropdownBasic1" [value]="vehicle" ngbDropdownToggle>
+				{{selected_vehicle}}
+			</button>
+			<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+				<button *ngFor="let vehicle of vehicle_service.vehicles_list_route" ngbDropdownItem (click)="select(vehicle)">{{vehicle.licence_plate}}</button>
+			</div>
+		</div>
+    </div>
+    <div class="col-4">
+                   
+        <div class="form-group">
+          <input id="employee_num" type="text" class="form-control" name="employee_num"
+          #employee_num="ngModel" [(ngModel)]="employee_number" placeholder="Numero de Empleado" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="col-4">
+        <button class="btn btn-primary" (click)="addEmplpyee()">
+          <i class="fas fa-plus-circle"></i>Agregar.
+      </button>
+
+    </div>
+		
+</div>
+
+<div class="row">
+
+    <table  class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Numero</th>
+                <th scope="col">Empleado</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employee_vehicle_list">
+          
+                    <td>{{employee.employee_number}}</td>
+                    <td>{{employee.name}}</td>
+                    <td>
+                      <a class="btn btn-danger text-white" (click)="removeEmployee(employee)">
+                        <i class="fas fa-trash-alt"></i>
+                      </a>
+                      </td>
+            </tr>
+                
+                <tr>
+                    <td colspan="5" style="text-align: center">Recorrido en proceso</td>
+                </tr>
+            
+        </tbody>
+    </table>
+</div>

@@ -16,7 +16,6 @@ export class MapService {
   lng = -106.3982591990835;
   zoom = 15;
   constructor() {
-    debugger;
     // Asignamos el token desde las variables de entorno
     this.mapbox.accessToken = environment.mapBoxToken;
   }
@@ -35,7 +34,6 @@ export class MapService {
    
      // Initialize the m
    
-debugger;
   const marker = new mapboxgl.Marker({
       color: "#FFFFFF",
       draggable: true
@@ -45,7 +43,7 @@ debugger;
     // Set an event listener
     const thisObject = this;
     this.map.on('click', (e) => {
-      debugger;
+      
       console.log(`A dblclick event has occurred at ${e.lngLat}`);
       this.addMarker(this,e.lngLat.lng,e.lngLat.lat);
     

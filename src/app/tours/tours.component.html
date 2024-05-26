@@ -1,0 +1,221 @@
+
+  <ng-template #content let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Tour</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+          <div class="container" style="margin-top: 60px">
+              <form #userForm="ngForm" >
+        
+    
+                  <div class="row form_row">
+              
+                    <div class="col-3">
+                      <label for="odometer">Kilometraje</label>
+                    </div>
+              
+                    <div class="col-9">
+                     
+                      <div class="form-group">
+                        <input id="odometer" type="text" class="form-control" name="odometer"
+                        #odometer="ngModel" [(ngModel)]="_odometer" placeholder="Kilometraje" autocomplete="off" />
+                      </div>
+                    </div>
+              
+                  </div>
+
+                   
+                </form>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      </div>
+  </ng-template> 
+
+  
+
+  <ng-template #content_employee let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Tour</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="container" style="margin-top: 60px">
+            <form #userForm="ngForm" >
+      
+  
+                <div class="row form_row">
+            
+                  <div class="col-3">
+                    <label for="odometer">Numero de Empleado</label>
+                  </div>
+            
+                  <div class="col-9">
+                   
+                    <div class="form-group">
+                      <input id="employee_num" type="text" class="form-control" name="employee_num"
+                      #employee_num="ngModel" [(ngModel)]="employee_number" placeholder="Numero de Empleado" autocomplete="off" />
+                    </div>
+                  </div>
+            
+                </div>
+
+      
+               
+              </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template> 
+
+  
+ <div class="container" style="margin-top: 60px">
+
+          <form *ngIf="user_service.userType==2">
+              <div class="mb-3 row">
+        
+               
+                  <div class="col-2">
+                    <button class="btn btn-primary" (click)="startTour(content)">
+                      <i class="fas fa-plus-circle"></i>Nuevo
+                      </button>
+                  </div>
+                     
+                  
+              </div>
+          </form>
+
+ 
+          
+          <table *ngIf="tour_service.current_tour && user_service.userType==2" class="table table-striped">
+              <thead>
+                  <tr>
+                      <th scope="col">Hora Inicio</th>
+                      <th scope="col">Hora Fin</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <!-- <tr *ngFor="let tour of tour_service.tour_list"> -->
+                   <tr>
+                          <td>{{tour_service.current_tour.start_date_time}}</td>
+                          <td>{{tour_service.current_tour.end_date_time}}</td>
+                          <td>
+                              <a class="btn btn-danger text-white" (click)="endTour(content)">
+                                  <i class="fa fa-stop-circle"></i>
+                              </a>
+                          </td>
+                  </tr>
+                      
+                      <tr>
+                          <td colspan="5" style="text-align: center">Lista de empleados</td>
+                      </tr>
+                  
+              </tbody>
+          </table>
+        
+          <div class="col-2" *ngIf="user_service.userType==2">
+            <button class="btn btn-primary" (click)="AddEmployee(content_employee)">
+              <i class="fa fa-users"></i>Subir Empleado
+              </button>
+          </div>
+        
+          <table *ngIf="tour_service.employee_tour_list && user_service.userType==2" class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Numero</th>
+                    <th scope="col">Empleado</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of tour_service.tour_detail">
+              
+                        <td>{{getEmployeeNumber(detail.employee_id)}}</td>
+                        <td>{{getEmployeeName(detail.employee_id)}}</td>
+                        <td>
+                          <a class="btn btn-danger text-white" (click)="removeEmployee(detail)">
+                            <i class="fas fa-trash-alt"></i>
+                          </a>
+                          </td>
+                </tr>
+                    
+                    <tr>
+                        <td colspan="5" style="text-align: center">Recorrido en proceso</td>
+                    </tr>
+                
+            </tbody>
+        </table>
+
+        <div class="row" *ngIf="user_service.userType==3">
+          <form>
+            <div class="mb-3 row">   
+                  <div class="col-2">
+                    <button class="btn btn-primary" (click)="boarding()" [disabled]="!isReadyToConfirm()">
+                      <i class='fas fa-car'></i>Abordar
+                      </button>
+                  </div>
+              </div>
+          </form>
+          <form>
+            <div class="mb-3 row">   
+                  <div class="col-2">
+                    <button class="btn btn-primary" (click)="boardingExternal()" [disabled]="!isExternalAvailable()" >
+                      <i class='fas fa fa-bus'></i>Abordar Ruta Externa
+                      </button>
+                  </div>
+              </div>
+          </form>
+        </div>
+   </div> 
+    
+    <!-- <li [ngbNavItem]="2">
+      <button ngbNavLink>Rutas</button>
+      <ng-template ngbNavContent navChange="setInputRoutesEvent()">
+  
+        
+        <div class="col-8" style="margin-top: 30px;">
+          
+          <google-map id="map" height="700px"
+                  width="1100px"
+                  [center]="center"
+                  [zoom]="zoom"
+                  (mapClick)="open(content,$event)"
+                                             >
+                  <span>
+      
+                  </span>
+                  <map-marker *ngFor="let position of markerPositions; let i=index" [position]="position" [options]="getOption(i)" (clickable)="true"></map-marker>
+                  <map-marker *ngFor="let position of station_service.markerStationPositionsByRute; let i=index" [position]="position" [options]="getStationOption(i)" ></map-marker>
+                  <map-marker *ngFor="let position of office_service.markerOfficePositions" [position]="position" [options] = "office_service.officeMarkerOptions[0]" ></map-marker>
+                  
+                  <map-marker *ngFor="let position of userMarker" [position]="position" ></map-marker>
+                 
+        </google-map>
+       
+      <div>Latitude: {{display?.lat}}</div>
+      <div>Longitude: {{display?.lng}}</div>
+      </div>
+    
+      </ng-template>
+    </li> -->
+  
+  
+
+<!-- <ng-template #content let-modal>
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Asignar Estación</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+      <div class="container" style="margin-top: 60px">
+         <input type="text" name="Empleado" id="">
+         <input type="text" name="vehiculo" id="">
+       </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>  -->

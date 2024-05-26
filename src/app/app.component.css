@@ -5,3 +5,8 @@
 .content.sidebarExpanded {
     margin-left: 160px;
 }
+
+.form_row{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}

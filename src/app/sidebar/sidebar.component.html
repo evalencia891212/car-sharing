@@ -1,146 +1,66 @@
 <div class="sidebar" [ngClass]="{ 'expanded': isExpanded }">
     <div class="header">
       <h1 class="title">
-        Catalogos
+        
       </h1>
       <div class="toggle" (click)="handleSidebarToggle()">
-        <span class="chevron"></span>
+        <!-- <span *ngIf="isExpanded" class="chevron"></span> -->
+        <img *ngIf="isExpanded" class="image" alt="bimtrazer-logo" src="assets/icons/icons8-close-20.png"/>
+        <img *ngIf="!isExpanded" class="image" alt="bimtrazer-logo" src="assets/icons/icons8-menu-40.png"/>
       </div>
     </div>
     <div class="content">
       <div class="link">
         <div class="content" [routerLink]="['/home']" [routerLinkActive]="'active'">
           <div class="icon">
-            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-              <title>Stockholm-icons / Home / Flower2</title>
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-              </g>
-            </svg>
+            <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-home-26.png"/>
           </div>
           <div class="title">Home</div>
         </div>
       </div>
-      <div class="link with-children">
+      <div *ngIf="user_service.userType == 1" class="link with-children">
         <div class="content" [routerLink]="['/configuration']" [routerLinkActive]="'active'">
           <div class="icon">
-            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-              <title>Stockholm-icons / Home / Flower2</title>
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-              </g>
-            </svg>
+            <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-catalog-26.png"/>
           </div>
-          <div class="title">Menu</div>
+          <div class="title">Catalogos</div>
         </div>
         <div class="children">
           <div class="link">
-            <div class="content" [routerLink]="['/app-cat-employees']" [queryParams]="{ 'child': '1' }"
+            <div class="content" [routerLink]="['/app-cat-models']" [queryParams]="{ 'child': '3' }"
               [routerLinkActive]="'active'">
               <div class="icon">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                  <title>Stockholm-icons / Home / Flower2</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                    <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-                  </g>
-                </svg>
+                <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-model-26.png"/>
               </div>
-              <div class="title">Empleados</div>
+              <div class="title">Modelos</div>
             </div>
           </div>
           <div class="link">
             <div class="content" [routerLink]="['/app-cat-vehicles']" [queryParams]="{ 'child': '2' }"
               [routerLinkActive]="'active'">
               <div class="icon">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                  <title>Stockholm-icons / Home / Flower2</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                    <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-                  </g>
-                </svg>
+                <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-vehicle-26.png"/>
               </div>
               <div class="title">Vehiculos</div>
             </div>
           </div>
           <div class="link">
-            <div class="content" [routerLink]="['/app-cat-models']" [queryParams]="{ 'child': '3' }"
+            <div class="content" [routerLink]="['/app-cat-employees']" [queryParams]="{ 'child': '1' }"
               [routerLinkActive]="'active'">
               <div class="icon">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                  <title>Stockholm-icons / Home / Flower2</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                    <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-                  </g>
-                </svg>
+                <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-employee-26.png"/>
               </div>
-              <div class="title">Modelos</div>
+              <div class="title">Empleados</div>
             </div>
           </div>
+         
+          
         </div>
       </div>
-      <div class="link with-children">
-        <div class="content" [routerLink]="['/bookings']" [routerLinkActive]="'active'">
+      <div  *ngIf="user_service.userType == 1" class="link with-children">
+        <div class="content" >
           <div class="icon">
-            <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink">
-              <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-              <title>Stockholm-icons / Home / Flower2</title>
-              <desc>Created with Sketch.</desc>
-              <defs></defs>
-              <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-              </g>
-            </svg>
+            <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-path-26.png"/>
           </div>
           <div class="title">Rutas</div>
         </div>
@@ -150,21 +70,7 @@
             <div class="content" [routerLink]="['/app-stations']" [queryParams]="{ 'child': '1' }"
               [routerLinkActive]="'active'">
               <div class="icon">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                  <title>Stockholm-icons / Home / Flower2</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                    <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-                  </g>
-                </svg>
+                <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-place-26.png"/>
               </div>
               <div class="title">Estaciones</div>
             </div>
@@ -175,24 +81,10 @@
 
         <div class="children">
           <div class="link">
-            <div class="content" [routerLink]="['/app-rutas']" [queryParams]="{ 'child': '1' }"
+            <div class="content" [routerLink]="['/app-routes-list']" [queryParams]="{ 'child': '1' }"
               [routerLinkActive]="'active'">
               <div class="icon">
-                <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink">
-                  <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-                  <title>Stockholm-icons / Home / Flower2</title>
-                  <desc>Created with Sketch.</desc>
-                  <defs></defs>
-                  <g id="Stockholm-icons-/-Home-/-Flower2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <polygon id="bound" points="0 0 24 0 24 24 0 24"></polygon>
-                    <circle id="Oval-32" fill="#000000" opacity="0.3" cx="15" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy" fill="#000000" opacity="0.3" cx="9" cy="17" r="5"></circle>
-                    <circle id="Oval-32-Copy-2" fill="#000000" opacity="0.3" cx="7" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-3" fill="#000000" opacity="0.3" cx="17" cy="11" r="5"></circle>
-                    <circle id="Oval-32-Copy-4" fill="#000000" opacity="0.3" cx="12" cy="7" r="5"></circle>
-                  </g>
-                </svg>
+                <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-route-26.png"/>
               </div>
               <div class="title">Rutas</div>
             </div>
@@ -200,5 +92,70 @@
     
       </div>
     </div>
-    <div class="footer"></div>
+    <div class="link with-children">
+      <div class="content" >
+        <div class="icon">
+          <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-tour-26.png"/>
+        </div>
+        <div class="title">Recorrido</div>
+      </div>
+
+      <div class="children">
+        <div class="link">
+          <div class="content" [routerLink]="['/tour']" [queryParams]="{ 'child': '1' }"
+            [routerLinkActive]="'active'">
+            <div class="icon">
+              <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-start-route-26.png"/>
+            </div>
+            <div class="title">Reccorrido</div>
+          </div>
+        </div>
+    </div>
   </div>
+
+  <div class="link with-children">
+    <div class="content" >
+      <div class="icon">
+        <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-reports-26.png"/>
+      </div>
+      <div class="title">Reportes</div>
+    </div>
+
+    <div class="children">
+      <div class="link">
+        <div class="content" [routerLink]="['/app-global-emissions']" [queryParams]="{ 'child': '1' }"
+          [routerLinkActive]="'active'">
+          <div class="icon">
+            <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-co2-26.png"/>
+          </div>
+          <div class="title">Emisiones globales</div>
+        </div>
+      </div>
+    
+
+  </div>
+  <div class="children">
+    <div class="link">
+      <div class="content" [routerLink]="['/app-real-emissions']" [queryParams]="{ 'child': '1' }"
+        [routerLinkActive]="'active'">
+        <div class="icon">
+          <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-co2-emissions-26.png"/>
+        </div>
+        <div class="title">Emisiones Reales</div>
+      </div>
+    </div>
+</div>
+
+<div class="children">
+  <div class="link">
+    <div class="content" [routerLink]="['/app-real-fuel']" [queryParams]="{ 'child': '1' }"
+      [routerLinkActive]="'active'">
+      <div class="icon">
+        <img  class="image" alt="bimtrazer-logo" src="assets/icons/icons8-fuel-26.png"/>
+      </div>
+      <div class="title">Combustible</div>
+    </div>
+  </div>
+</div>
+  <div class="footer"></div>
+</div>

@@ -1,0 +1,93 @@
+
+<form class="row row-cols-sm-auto" style="margin-top: 60px;margin-left: 50px;">
+	<div class="col-5">
+		<div class="input-group">
+			<input
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dp-start"
+				[(ngModel)]="start"
+				ngbDatepicker
+				#s="ngbDatepicker"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="s.toggle()" type="button"></button>
+		</div>
+	</div>
+    <div class="col-5">
+		<div class="input-group">
+			<input
+				class="form-control"
+				placeholder="yyyy-mm-dd"
+				name="dp-end"
+				[(ngModel)]="end"
+				ngbDatepicker
+				#e="ngbDatepicker"
+			/>
+			<button class="btn btn-outline-secondary bi bi-calendar3" (click)="e.toggle()" type="button"></button>
+		</div>
+	</div>
+    <div class="col-2"> <button class="btn btn-primary" (click)="searchInfo()">
+        <i class="fas fa-search"></i>Buscar
+        </button>
+    </div>
+</form>
+
+
+
+<div class="container" style="margin-top: 60px">
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="downloadPDF()">
+          <i class="fa fa-download"></i>Descargar
+      </button>
+      </div>
+    <div style="margin-top: 10px;" id="htmlData">
+     
+        <table class="table">
+            <thead>
+                <tr class="table-active">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Vehículo</th>
+                    <th scope="col"> Rendimiento</th>
+                    <th scope="col"> Emisiones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let row of report_service.globalCO2emissions">
+                    <td  style="width:250px">{{getName(row)}}</td> 
+                    <td>{{row.model_name}} {{row.model_year}}</td>   
+                    <td>{{row.performance}}</td>
+                    <td>{{formatEmitionsGlobal(row)}}</td>
+                </tr>   
+                <tr [ariaColSpan]="4">Total Global: {{formatNumber(global_emision_acumulated)}}</tr>  
+    
+            </tbody>
+    
+        </table>    
+
+
+    <table class="table">
+        <thead>
+            <tr class="table-active">
+                <th scope="col">Nombre</th>
+                <th scope="col">Vehículo</th>
+                <th scope="col"> Rendimiento</th>
+                <th scope="col"> Emisiones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tour_row of report_service.tourInfo">
+                <td  style="width:250px">{{getName(tour_row)}}</td> 
+                <td>{{tour_row.model_name}} {{tour_row.model_year}}</td>   
+                <td>{{tour_row.performance}}</td>
+                <td>{{formatSavedEmitions(tour_row)}}</td>
+            </tr>    
+            
+            <tr>Ajuste por Recorridos: {{formatNumber(adjust_emision_acumulated)}}</tr>
+
+        </tbody>
+
+    </table>
+    <b>Total Real de emisiones: {{formatNumber(global_emision_acumulated + adjust_emision_acumulated)}}</b>
+</div>
+</div>
+

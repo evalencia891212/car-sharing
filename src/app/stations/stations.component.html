@@ -1,1 +1,109 @@
-<div id="map" class="map-container"> </div>
+<!-- <div id="map" class="map-container"> </div> -->
+  
+<ng-template #content_employees let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<div class="container" style="margin-top: 60px">
+			<app-vehicle-employees [route_id]="route_service.selected_route.route_id"></app-vehicle-employees>
+    </div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template> 
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<div class="container" style="margin-top: 60px">
+      <app-station-form></app-station-form>
+    </div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div>
+</ng-template> 
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-left: 50px" (click)="ngOnInit()">
+	<li [ngbNavItem]="1">
+		<button ngbNavLink>Estaciones</button>
+		<ng-template ngbNavContent>
+      <div class="row" style="margin-left: 50px" >
+      
+        <div class="col-4" >
+          <label for="route_search">Ruta</label>
+          <input id="route_search" type="text" class="form-control" name="route_search"
+          #route_search [(ngModel)]="selected_route"  autocomplete="off"/>
+          <ul #routeSelectList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+            <li (click)='selectRoute(route)' class="list-group-item"
+              *ngFor="let route of route_select_list">
+              <span>{{route.route_name}} </span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2">
+          <label>Largo de la ruta{{station_service.route_long}}</label>
+        </div>
+          
+    </div>
+			<div class="row" style="margin-left: 50px">
+        <div class="col-8" style="margin-top: 30px;">
+          
+            <google-map id="map" height="700px"
+                    width="1100px"
+                    [center]="center"
+                    [zoom]="zoom"
+                    (mapClick)="open(content,$event)"
+                    (mapMousemove)="move($event)">
+                    <span>
+        
+                    </span>
+                    <map-marker *ngFor="let position of markerPositions; let i=index" [position]="position" [options]="getOption(i)" (clickable)="true"></map-marker>
+                    <map-marker *ngFor="let position of station_service.markerStationPositionsByRute; let i=index" [position]="position" [options]="getStationOption(i)" (mapClick)="updateStation($event,i)"></map-marker>
+                    <map-marker *ngFor="let position of office_service.markerOfficePositions" [position]="position" [options] = "office_service.officeMarkerOptions[0]" ></map-marker>
+                    
+                    <map-marker *ngFor="let position of userMarker" [position]="position" ></map-marker>
+                   
+          </google-map>
+         
+        <div>Latitude: {{display?.lat}}</div>
+        <div>Longitude: {{display?.lng}}</div>
+        </div>
+      
+        <div class="col-4">
+          <!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let movie of movies; track movie" class="example-box" cdkDrag>{{movie}}</div>
+          </div> -->
+          <div class="example-list" style="margin-top: 30px;">
+            <!-- <div *ngFor="let station of station_service.stations_list; track movie" class="example-box" >{{station.station_name}}</div> -->
+            <app-stations-list 
+              (onUpdateClick)="open(content,$event)" 
+              (onRemoveClick)="onDelete($event)" 
+              (onEmployees)="openEmployee(content_employees,$event)" [route_id]="route_service.selected_route.route_id"></app-stations-list>
+          </div> 
+        </div>
+      </div>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="2">
+		<button ngbNavLink>Estaciones-Rutas</button>
+		<ng-template ngbNavContent navChange="setInputRoutesEvent()">
+
+      <div style="margin-left: 50px"><app-station-sequence [tour_mode]="false"></app-station-sequence></div>
+			
+		</ng-template>
+	</li>
+	
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+<pre>Active: {{ active }}</pre>
+
+

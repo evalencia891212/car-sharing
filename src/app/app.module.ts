@@ -23,7 +23,25 @@ import { CatModelsComponent } from './cat-models/cat-models.component';
 import { ModelsListComponent } from './cat-models/models-list/models-list.component';
 import { StationsComponent } from './stations/stations.component';
 import { CatRoutesComponent } from './cat-routes/cat-routes.component';
-import {GoogleMapsModule} from '@angular/google-maps'; 
+import {GoogleMapsModule} from '@angular/google-maps';
+import { RoutesListComponent } from './cat-routes/routes-list/routes-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { StationsListComponent } from './stations-list/stations-list.component';
+import { StationFormComponent } from './station-form/station-form.component';
+import { StationSequenceComponent } from './station-sequence/station-sequence.component';
+import { ModelFormComponent } from './cat-models/model-form/model-form.component';
+import { EmployeeFormComponent } from './cat-employees/employee-form/employee-form.component';
+import { EmployeesComponent } from './cat-employees/employees/employees.component';
+import { RouteFormComponent } from './cat-routes/route-form/route-form.component';
+import { VehiclesFormComponent } from './cat-vehicles/vehicles-form/vehicles-form.component';
+import { ToursComponent } from './tours/tours.component';
+import { GlobalEmissionsComponent } from './reports/global-emissions/global-emissions.component';
+import { GlobalFuelComponent } from './reports/global-fuel/global-fuel.component';
+import { RealEmissionsComponent } from './reports/real-emissions/real-emissions.component';
+import { RealFuelComponent } from './reports/real-fuel/real-fuel.component';
+import { VehicleEmployeesComponent } from './vehicle-employees/vehicle-employees.component';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +58,22 @@ import {GoogleMapsModule} from '@angular/google-maps';
     CatModelsComponent,
     ModelsListComponent,
     StationsComponent,
-    CatRoutesComponent
+    CatRoutesComponent,
+    RoutesListComponent,
+    StationsListComponent,
+    StationFormComponent,
+    StationSequenceComponent,
+    ModelFormComponent,
+    EmployeeFormComponent,
+    EmployeesComponent,
+    RouteFormComponent,
+    VehiclesFormComponent,
+    ToursComponent,
+    GlobalEmissionsComponent,
+    GlobalFuelComponent,
+    RealEmissionsComponent,
+    RealFuelComponent,
+    VehicleEmployeesComponent   
   ],
   imports: [
     BrowserModule,
@@ -58,8 +91,9 @@ import {GoogleMapsModule} from '@angular/google-maps';
     CommonModule,
     ReactiveFormsModule,
     NgbTypeaheadModule,
-    GoogleMapsModule
-
+    GoogleMapsModule,
+    BrowserAnimationsModule,
+    DragDropModule
   ],
   providers: [DecimalPipe,Employee],
   bootstrap: [AppComponent]

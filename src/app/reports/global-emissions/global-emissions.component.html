@@ -1,0 +1,34 @@
+
+<div class="container" style="margin-top: 60px">
+    <div class="col-2">
+        <button class="btn btn-primary" (click)="downloadPDF()">
+          <i class="fa fa-download"></i>Descargar
+      </button>
+      </div>
+    <div id="htmlData">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Numero de empleado</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Vehículo</th>
+                <th scope="col"> Rendimiento</th>
+                <th scope="col"> Emisiones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of report_service.globalCO2emissions">
+                <td>{{row.employee_number}}</td> 
+                <td>{{row.name}}</td> 
+                <td>{{row.model_name}} {{row.model_year}}</td>   
+                <td>{{row.performance}}</td>
+                <td>{{formatEmitions(row)}}</td>
+            </tr>   
+            <tr [ariaColSpan]="4"><b>Total: {{formatNumber(total_emision_acumulated)}}</b></tr>  
+
+        </tbody>
+
+    </table>
+</div>
+
+</div>

@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, Input, OnInit, PipeTransform, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, PipeTransform, TemplateRef } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, startWith } from 'rxjs';
@@ -24,6 +24,10 @@ function search(this: any, text: string, pipe: PipeTransform): Model[] {
 })
 export class ModelsListComponent implements OnInit{
 
+  @Output() onAddModelClick = new EventEmitter<String>();
+  @Output() onUpdateModelClick = new EventEmitter<Model>();
+  @Output() onRemoveModelClick = new EventEmitter<Model>();
+
   private modalService = inject(NgbModal);
   closeResult = '';
 
@@ -37,9 +41,9 @@ export class ModelsListComponent implements OnInit{
 	pageSize = 4;
   public  showPagination: boolean = true;
 
-  constructor(pipe: DecimalPipe, public model_service:ModelService){
+ 
 
-    debugger;
+  constructor(pipe: DecimalPipe, public model_service:ModelService){
     this.models_ = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => search(text, pipe)),
@@ -51,7 +55,6 @@ export class ModelsListComponent implements OnInit{
 
   ngOnInit(): void {
     this.model_service.getModels();
-    debugger
    
   }
 
@@ -74,8 +77,8 @@ export class ModelsListComponent implements OnInit{
 		);
 	}
 
-  open(content: TemplateRef<any>, model?:Model) {
-
+  public open(content: TemplateRef<any>, model?:Model) {
+    
     if (model != undefined)
     this.onEdit(model);
     else
@@ -84,7 +87,7 @@ export class ModelsListComponent implements OnInit{
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
 			(result: any) => {
 				this.closeResult = `Closed with: ${result}`;
-        debugger;
+        
         model = this.model_service.selected_model;
         if(model.model_id == null)
         this.model_service.saveModel(model);
@@ -114,6 +117,19 @@ export class ModelsListComponent implements OnInit{
 				return `with: ${reason}`;
 		}
 	}
+
+  public emitAdd(){
+    this.onAddModelClick.emit("new");
+  }
+
+  public emitUpdate(model:Model){
+    
+    this.onUpdateModelClick.emit(model);
+  }
+
+  public emitRemove(model:Model){
+    this.onRemoveModelClick.emit(model);
+  }
 
 
 }

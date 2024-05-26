@@ -1,0 +1,52 @@
+ <div class="container" style="margin-top: 60px">
+
+
+    <form>
+        <div class="mb-3 row">
+            <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+            <div class="col-xs-3 col-sm-auto">
+                <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+            </div>
+            
+          
+                <div class="col-2">
+                  <button class="btn btn-primary" (click)="emitAdd()">
+                    <i class="fas fa-plus-circle"></i>Nuevo
+                </button>
+                </div>
+               
+            
+        </div>
+    </form>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Folio</th>
+                <th scope="col">Nombre</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let route of route_service.route_list">
+                    
+                    <td><ngb-highlight [result]="route.route_id.toString().padStart(4,'0000')" [term]="filter.value" /></td>
+                    <td><ngb-highlight [result]="route.route_name" [term]="filter.value" /></td>
+                    <td>
+                        <a class="btn btn-secondary text-white" (click)="emitUpdate(route)">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" (click)="emitRemove(route)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                      </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align: center">Lista de Rutas</td>
+                </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+
+    

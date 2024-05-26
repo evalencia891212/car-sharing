@@ -10,7 +10,7 @@
 		
       
 			<div class="col-2">
-			  <button class="btn btn-primary" (click)="open(content)">
+			  <button class="btn btn-primary" (click)="emitAdd()">
 				<i class="fas fa-plus-circle"></i>Nuevo
 			</button>
 			</div>
@@ -34,10 +34,10 @@
 				<td>{{model.model_year}}</td>
                 <td>{{model.pasenger_capability}}</td>
 				<td>
-					<a class="btn btn-secondary text-white" (click)="open(content,model)">
+					<a class="btn btn-secondary text-white" (click)="emitUpdate(model)">
 						<i class="far fa-edit"></i>
 					</a>
-					<a class="btn btn-danger text-white" (click)="onDelete(model.model_id)">
+					<a class="btn btn-danger text-white" (click)="emitRemove(model)">
 						<i class="fas fa-trash-alt"></i>
 					</a>
 				  </td>
@@ -50,17 +50,3 @@
 </table>
 </div>
 
-<ng-template #content let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-		<div class="container" style="margin-top: 60px">
-			<app-cat-models></app-cat-models>
-    </div>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-	</div>
-</ng-template> 

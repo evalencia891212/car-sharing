@@ -4,43 +4,74 @@
 	<div class="mb-3 row">
 		<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
 		<div class="col-xs-3 col-sm-auto">
-			<input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+			<input id="filter_search" class="form-control" type="text" name="filter_search"
+            #filter_search="ngModel" [(ngModel)]="search" />
+			
 		</div>
+		<div class="col-2">
+			<button class="btn btn-primary" (click)="filterTable()">
+				<i class="fas fa-search"></i>
+			</button>
+		  </div>
+		<div class="col-2">
+			<button class="btn btn-primary" (click)="emitAdd()">
+			  <i class="fas fa-plus-circle"></i>Nuevo
+		  </button>
+		  </div>
 	</div>
 </form>
 
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th scope="col">#</th>
 			<th scope="col">Serie</th>
 			<th scope="col"> Placas de circulacion </th>
-			<th scope="col">Modelo</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Tipo Uso</th>
 		</tr>
 	</thead>
 	<tbody>
-			<tr *ngFor="let vehicle of vehicle_service.vehicles_list">
-				<th scope="row">{{ vehicle.serial_number }}</th>
+			<tr *ngFor="let vehicle of vehicle_service.vehicles_list_page">
+				
 
 				<td><ngb-highlight [result]="vehicle.serial_number" [term]="filter.value" /></td>
 				<td><ngb-highlight [result]="vehicle.licence_plate" [term]="filter.value" /></td>
+				<td *ngIf="vehicle.vehicle_status == 1"> Activo </td>
+				<td *ngIf="vehicle.vehicle_status == 2"> Descando </td>
+				<td *ngIf="vehicle.route_id != 0"> Compartido </td>
+				<td *ngIf="vehicle.route_id == 0"> Individual </td>
 				<td>
-					<a class="btn btn-secondary text-white" (click)="open(content,vehicle)">
+					<a class="btn btn-secondary text-white" (click)="emitUpdate(vehicle)">
 						<i class="far fa-edit"></i>
 					</a>
-					<a class="btn btn-danger text-white" (click)="onDelete(vehicle.vehicle_id)">
+					<a class="btn btn-danger text-white" (click)="emitRemove(vehicle)">
 						<i class="fas fa-trash-alt"></i>
+					</a>
+					<a class="btn btn-secondary text-white" (click)="emitIssue(vehicle)" >
+						<i class="fas fa-exclamation-triangle"></i>
 					</a>
 				  </td>
 			</tr>
 			<tr>
-				<td colspan="5" style="text-align: center">Lista de Vehiculos</td>
+				<td colspan="3" style="text-align: center">Lista de Vehiculos</td>
 			</tr>
 		
 	</tbody>
 </table>
 
+<div class="d-flex justify-content-between p-2">
+	<ngb-pagination
+		[collectionSize]="vehicle_service.vehicles_list.length"
+		[(page)]="page"
+		[pageSize]="10"
+		(pageChange)="refreshVehicles()"
+	>
+	</ngb-pagination>
 </div>
+
+</div>
+
+<!-- 
 <ng-template #content let-modal>
 	<div class="modal-header">
 		<h4 class="modal-title" id="modal-basic-title">Profile update</h4>
@@ -54,4 +85,4 @@
 	<div class="modal-footer">
 		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
 	</div>
-</ng-template> 
+</ng-template>  -->

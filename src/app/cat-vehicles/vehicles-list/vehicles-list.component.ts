@@ -1,5 +1,5 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, inject, Input, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Vehicle } from 'src/app/models/vehicles';
@@ -22,8 +22,17 @@ export class VehiclesListComponent {
   @Input({ required: false }) vehicles!: Vehicle[];
   @Input({ required: false }) content!: TemplateRef<any>;
 
+  @Output() onAddClick = new EventEmitter<String>();
+  @Output() onUpdateClick = new EventEmitter<Vehicle>();
+  @Output() onRemoveClick = new EventEmitter<Vehicle>();
+  @Output() onIssueClick = new EventEmitter<Vehicle>();
+
   filter = new FormControl('', { nonNullable: true });
 
+  //Pagination Variables
+  public page: number = 1;
+  //Filter Variables
+  search!: string;
 
   constructor(pipe: DecimalPipe,public vehicle_service:VehicleService, public models_service: ModelService) {
     this.vehicle_service.getVehicles();
@@ -38,16 +47,24 @@ export class VehiclesListComponent {
   }
 
   onEdit(vehicle:Vehicle){
-
+      this.vehicle_service.selected_vehicle = vehicle;
+      this.vehicle_service.selected_model = this.models_service.getModelByID(vehicle.model_id);
   }
 
-  open(content: TemplateRef<any>, vehicle:Vehicle) {
+  open(content: TemplateRef<any>, vehicle?:Vehicle) {
 
+    
+    if (vehicle != undefined)
     this.onEdit(vehicle);
+    else
+    this.vehicle_service.selected_vehicle = new Vehicle;
 
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
 			(result: any) => {
 				this.closeResult = `Closed with: ${result}`;
+        
+        console.log(this.vehicle_service.selected_vehicle);
+        this.vehicle_service.saveVehicle(this.vehicle_service.selected_vehicle);
 			},
 			(reason: any) => {
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -64,6 +81,49 @@ export class VehiclesListComponent {
 			default:
 				return `with: ${reason}`;
 		}
+	}
+
+
+  public emitAdd(){
+    this.onAddClick.emit("new");
+  }
+
+  public emitUpdate(vehicle:Vehicle){
+    
+    this.onUpdateClick.emit(vehicle);
+  }
+
+  public emitRemove(vehicle:Vehicle){
+    this.onRemoveClick.emit(vehicle);
+  }
+
+  emitIssue(vehicle:Vehicle){
+    this.onIssueClick.emit(vehicle)
+  }
+
+  filterTable(){
+    
+    console.log(this.search)
+    this.page = 1;
+    if(this.search != ""){
+      let match_vehicles = this.vehicle_service.vehicles_list.filter(vehicle => vehicle.licence_plate.toUpperCase().includes(this.search.toUpperCase()));
+      this.vehicle_service.vehicles_list_page = match_vehicles.slice(
+        (this.page - 1) * this.vehicle_service.pageSize,
+        (this.page - 1) * this.vehicle_service.pageSize + this.vehicle_service.pageSize,
+      );
+    }else {
+      this.refreshVehicles()
+    }
+    
+  }
+  
+
+  refreshVehicles() {
+		this.vehicle_service.vehicles_list_page = this.vehicle_service.vehicles_list.slice(
+			(this.page - 1) * this.vehicle_service.pageSize,
+			(this.page - 1) * this.vehicle_service.pageSize + this.vehicle_service.pageSize,
+		);
+    
 	}
 
 }

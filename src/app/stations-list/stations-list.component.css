@@ -1,0 +1,5 @@
+.complement-list{
+    max-height: 800px;
+    overflow-x: hidden; 
+    overflow-y: scroll;
+}

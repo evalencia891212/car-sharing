@@ -1,10 +1,10 @@
-<div class="container" style="margin-top: 60px">
+<!-- <div class="container" >
 
   <form #employeeForm="ngForm" (ngSubmit)="onSubmit(employeeForm)">
 
     <input type="hidden" name="employee_id" #employee_id="ngModel" [(ngModel)]="employe_service.selected_employee.employee_id">
 
-    <div class="row">
+    <div class="row form_row">
 
       <div class="col-3">
         <label for="employee_number">Numero empleado</label>
@@ -14,7 +14,7 @@
         
         <div class="form-group">
           <input id="employee_number" type="text" class="form-control" name="employee_number"
-          #employee_number="ngModel" [(ngModel)]="employe_service.selected_employee.employee_number"  />
+          #employee_number="ngModel" [(ngModel)]="employe_service.selected_employee.employee_number" placeholder="Numero empleado" autocomplete="off" />
         </div>
       </div>
 
@@ -22,7 +22,7 @@
 
     </div>
 
-    <div class="row">
+    <div class="row form_row">
 
       <div class="col-3">
         <label for="employee_name">Nombre empleado</label>
@@ -32,82 +32,119 @@
        
         <div class="form-group">
           <input id="employee_name" type="text" class="form-control" name="name"
-          #name="ngModel" [(ngModel)]="employe_service.selected_employee.name"  />
+          #name="ngModel" [(ngModel)]="employe_service.selected_employee.name" placeholder="Nombre empleado" autocomplete="off" />
         </div>
       </div>
 
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="last_name">Apellido Paterno</label>
       </div>
       <div class="col-9">
         <input id="last_name" type="text" class="form-control" name="last_name"
-        #last_name="ngModel" [(ngModel)]="employe_service.selected_employee.last_name"  />
+        #last_name="ngModel" [(ngModel)]="employe_service.selected_employee.last_name" placeholder="Apellido Paterno" autocomplete="off" />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="mother_last_name">Apellido Materno</label>
       </div>
       <div class="col-9">
         <input id="mother_last_name" type="text" class="form-control" name="mother_lastname"
-        #mother_lastname="ngModel" [(ngModel)]="employe_service.selected_employee.mother_lastname" />
+        #mother_lastname="ngModel" [(ngModel)]="employe_service.selected_employee.mother_lastname" placeholder="Apellido Materno" autocomplete="off" />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="street">Calle</label>
       </div>
       <div class="col-9">
         <input id="street_name" type="text" class="form-control" name="street_name"
-        #street_name="ngModel" [(ngModel)]="employe_service.selected_employee.street_name"  />
+        #street_name="ngModel" [(ngModel)]="employe_service.selected_employee.street_name" placeholder="Calle" autocomplete="off"  />
       </div>
      
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="out_num">Numero Ext.</label>
       </div>
       <div class="col-9">
         
         <input id="out_num" type="text" class="form-control" name="outdoor_number"
-        #outdoor_number="ngModel" [(ngModel)]="employe_service.selected_employee.outdoor_number" />
+        #outdoor_number="ngModel" [(ngModel)]="employe_service.selected_employee.outdoor_number" placeholder="Numero Ext." autocomplete="off" />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="int_num">Numero Int.</label>
       </div>
       <div class="col-9">
         <input id="int_num" type="text" class="form-control" name="interior_number"
-        #interior_number="ngModel" [(ngModel)]="employe_service.selected_employee.interior_number"  />
+        #interior_number="ngModel" [(ngModel)]="employe_service.selected_employee.interior_number" placeholder="Numero Int." autocomplete="off" />
       </div>
     </div>
 
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="neighborhood">Colonia.</label>
       </div>
       <div class="col-9">
         <input id="neighborhood" type="text" class="form-control" name="neighborhood"
-        #neighborhood="ngModel" [(ngModel)]="employe_service.selected_employee.neighborhood"  />
+        #neighborhood="ngModel" [(ngModel)]="employe_service.selected_employee.neighborhood" placeholder="Colonia." autocomplete="off"  />
       </div>
 
     </div>
 
-     <div class="row">
+    <div class="row form_row">
+      <div class="col-3">
+        <label for="vehicle_search">Vehículo</label>
+      </div>
+
+      <div class="col-5">
+        
+        <input id="vehicle_search" type="text" class="form-control" name="vehicle_search"
+        #vehicle_search [(ngModel)]="selected_vehicle" placeholder="Vehículo." autocomplete="off" />
+        <ul #vehicleSearchList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+          <li (click)='selectVehicle(vehicle)' class="list-group-item"
+            *ngFor="let vehicle of available_vehicle_list">
+            <span>{{vehicle.licence_plate}}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-4">
+
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+          <label class="form-check-label" for="exampleRadios1">
+           Activo
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+          <label class="form-check-label" for="exampleRadios2">
+            En Espera
+          </label>
+        </div>
+        
+
+      </div>
+
+
+    </div>
+
+     <div class="row form_row">
       <div class="col-3">
         <label for="company_mail">Email Empresarial</label>
       </div>
       <div class="col-9">
         <input id="company_mail" type="text" class="form-control" name="company_mail"
-        #company_mail="ngModel" [(ngModel)]="employe_service.selected_employee.company_mail" />
+        #company_mail="ngModel" [(ngModel)]="employe_service.selected_employee.company_mail" placeholder="Email Empresarial" autocomplete="off" />
       </div>
     </div>
 
@@ -117,47 +154,127 @@
       </div>
       <div class="col-9">
         <input id="personal_mail" type="text" class="form-control" name="personal_mail"
-        #personal_mail="ngModel" [(ngModel)]="employe_service.selected_employee.personal_mail" />
+        #personal_mail="ngModel" [(ngModel)]="employe_service.selected_employee.personal_mail" placeholder="Email Personal" autocomplete="off" />
       </div>
     </div>
-    <div class="row">
+    <div class="row form_row">
       <div class="col-3">
         <label for="locatio">Geo Localizacion</label>
       </div>
       <div class="col-9">
         <input id="location" type="text" class="form-control"  name="location"
-        #location="ngModel" [(ngModel)]="employe_service.selected_employee.location" />
+        #location="ngModel" [(ngModel)]="employe_service.selected_employee.location" placeholder="Geo Localizacion" autocomplete="off"  />
       </div>
     </div>
-   
-
-    <!-- <div class="row" style="margin-top: 30px;">
-    
-        <div class="col-12">
-          <button class="btn btn-primary" (click)="open(content)" type="submit" >
-            <i class="fas fa-plus-circle"></i> Guardar
-        </button>
-          <button type="button" class="btn btn-secondary">Limpiar</button>
-        </div>
-       
-    </div> -->
+  
   </form>
 
-    
-    
-   
 
-    <!-- <div class="row" style="margin-top: 30px;">
-      
-      <div class="col-12">
-        <app-employe-list [employees] = "employe_service.employee_list" [content]="content"></app-employe-list>
+
+  </div> -->
+
+  <app-employe-list 
+    (onAddClick)="open(employee_content)" 
+    (onUpdateClick)="open(employee_content,$event)" 
+    (onRemoveClick)="onDelete($event)"
+    (onUserClick)="openUser(user_content,$event)"></app-employe-list>
+
+  <ng-template #employee_content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container" style="margin-top: 60px">
+        <app-employee-form></app-employee-form>
       </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" [disabled]="employe_service.calculating_geocode">Save</button>
+    </div>
+  </ng-template> 
 
-     </div> -->
+  <ng-template #user_content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <div class="container" style="margin-top: 60px">
+        <form #userForm="ngForm" >
+          
+      
+          <div class="row form_row">
+      
+            <div class="col-3">
+              <label for="user_name">Usuario</label>
+            </div>
+      
+            <div class="col-9">
+             
+              <div class="form-group">
+                <input id="user_name" type="text" class="form-control" name="name"
+                #name="ngModel" [(ngModel)]="user_service.selected_employee_usser.user_name" placeholder="Usuario" autocomplete="off" />
+              </div>
+            </div>
+      
+          </div>
+
+          <div class="row form_row">
+  
+            <div class="col-3">
+              <label for="password">Contraseña</label>
+            </div>
+      
+            <div class="col-9">
+              
+              <div class="form-group">
+                <input id="password" type="text" class="form-control" name="password"
+                #password="ngModel" [(ngModel)]="user_service.selected_employee_usser.password" placeholder="Contraseña" autocomplete="off" />
+              </div>
+            </div>
 
     
+          </div>
+
+          <div class="row form_row">
+
+          <div class="col-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeRadios" id="type_user1" value="1" #type_user1="ngModel" [(ngModel)]="user_service.selected_employee_usser.typer_id" checked>
+              <label class="form-check-label" for="typeRadio1">
+               Administrador
+              </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeRadios" id="type_user2" value="2" #type_user2="ngModel" [(ngModel)]="user_service.selected_employee_usser.typer_id" >
+              <label class="form-check-label" for="typeRadio2">
+                Conductor
+              </label>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="typeRadios" id="type_user3" value="3" #type_user3="ngModel" [(ngModel)]="user_service.selected_employee_usser.typer_id" >
+              <label class="form-check-label" for="typeRadio3">
+                Pasajero
+              </label>
+            </div>
+          </div>
+          
+            
+    
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')" [disabled]="employe_service.calculating_geocode">Save</button>
+    </div>
+  </ng-template> 
 
 
-  </div>
 
   

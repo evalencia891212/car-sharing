@@ -1,34 +1,66 @@
-
-
-
-<div class="container" style="margin-top: 60px">
+<!-- <div class="container" style="margin-top: 60px">
 
     <form #vehicleForm="ngForm" (ngSubmit)="onSubmit(vehicleForm)">
   
       <input type="hidden" name="vehicle_id" #vehicle_id="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.vehicle_id">
   
-      <div class="row">
+      <div class="row form_row">
   
         <div class="col-3">
           <label for="serial_number">Numero de Serie</label>
+        </div> 
+
+        <div class="col-5">
           <div class="form-group">
             <input id="serial_number" type="text" class="form-control" name="serial_number"
-            #employee_number="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.serial_number"  />
+            #serial_number="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.serial_number" placeholder="Numero de Serie" autocomplete="off"  />
           </div>
         </div>
   
+        <div class="col-4">
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statusRadios" id="vehicle_status1" value="1" checked  #vehicle_status1="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.vehicle_status">
+            <label class="form-check-label" for="exampleRadios1">
+             Activo
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="statusRadios" id="vehicle_status2" value="2" checked  #vehicle_status2="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.vehicle_status">
+            <label class="form-check-label" for="exampleRadios2">
+              En Espera
+            </label>
+          </div>
+          
+  
+        </div>
+        
+  
+      </div>   
+      
+
+      <div class="row form_row">
+
         <div class="col-3">
           <label for="licence_plate">Placas de circulación </label>
+        </div>
+
+        <div class="col-9">
           <div class="form-group">
             <input id="licence_plate" type="text" class="form-control" name="licence_plate"
-            #licence_plate="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.licence_plate"  />
+            #licence_plate="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.licence_plate" placeholder="Placas de circulación" autocomplete="off" />
           </div>
         </div>
   
+      </div>
+
+      <div class="row form_row">
         <div class="col-3">
           <label for="model_search">Modelo</label>
+        </div>
+        <div class="col-9">
           <input id="model_search" type="text" class="form-control" name="model_search"
-          #model_search [(ngModel)]="selected_model"  />
+          #model_search [(ngModel)]="vehicle_service.selected_model" placeholder="Modelo" autocomplete="off" />
           <ul #modelSearchList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
             <li (click)='selectModel(model)' class="list-group-item"
               *ngFor="let model of model_select_list">
@@ -36,28 +68,97 @@
             </li>
           </ul>
         </div>
-  
-      </div>   
-  
-      <div class="row" style="margin-top: 30px;">
-      
-          <div class="col-2">
-            <button class="btn btn-primary" type="submit">
-              <i class="fas fa-plus-circle"></i> Guardar
-          </button>
-            <button type="button" class="btn btn-secondary">Limpiar</button>
-          </div>
-         
       </div>
+
+      <div class="row form_row">
+
+        <div class="col-3">
+          <label for="route_search">Ruta</label>
+        </div>
+        <div class="col-5">
+          
+          <input id="route_search" type="text" class="form-control" name="route_search"
+          #route_search [(ngModel)]="selected_route" placeholder="Ruta" autocomplete="off" />
+          <ul #routeSearchList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+            <li (click)='selectRoute(route)' class="list-group-item"
+              *ngFor="let route of route_select_list">
+              <span>{{route.route_name}}</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-4">
+
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="private_company1" value="1" #private_company1="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.private_company" checked>
+            <label class="form-check-label" for="exampleRadios1">
+             Particular
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="private_company2" value="2" #private_company2="ngModel" [(ngModel)]="vehicle_service.selected_vehicle.private_company">
+            <label class="form-check-label" for="exampleRadios2">
+              Compañia
+            </label>
+          </div>
+          
+  
+        </div>
+      </div>
+  
+  
     </form> 
   
   
-      <!-- <div class="row" style="margin-top: 30px;">
-        
-        <div class="col-12">
-          <app-vehicles-list [vehicles]="vehicle_service.vehicles_list"></app-vehicles-list>
-        </div>
-  
-       </div> -->
+     
 
+    </div> -->
+
+    <app-vehicles-list (onAddClick)="open(content)" (onUpdateClick)="open(content,$event)" (onRemoveClick)="onDelete($event)" (onIssueClick)="openIssue(content_issue,$event)"></app-vehicles-list>
+
+    <ng-template #content let-modal>
+      <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Datos del vehiculo</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+          <div class="container" style="margin-top: 60px">
+             <app-vehicles-form></app-vehicles-form>
+      </div>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+      </div>
+  </ng-template> 
+
+  <ng-template #content_issue let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Datos del vehiculo</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
+    <div class="modal-body">
+        <div class="container" style="margin-top: 60px">
+          <div class="row">
+            <label for="description">Descripción:</label>
+
+            <textarea class="form-control" cols="2" rows="5" id="description" name="description"
+            #description="ngModel" [(ngModel)]="vehicle_service.open_issue.description" autocomplete="off"></textarea>
+            
+            
+          </div>
+          <div class="row" *ngIf="vehicle_service.open_issue.vehicle_issue_id != 0">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="status" name="status"
+              #status="ngModel" [(ngModel)]="statusCheck">
+              <label class="form-check-label" for="status">
+               Cerrar
+              </label>
+            </div>
+          </div>
+         
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    </div>
+</ng-template> 

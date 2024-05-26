@@ -1,6 +1,9 @@
 
 
 <app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
-<div class="content" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+<div class="content" style="margin-left: 250px" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+  <b><label for="">Empleado: {{employee_service.employee_info.employee_name}}</label></b>&nbsp;
+  <b><label for="">Numero: {{employee_service.employee_info.employee_number}}</label></b>&nbsp;
+  <b><label *ngIf="employee_service.employee_info.vehicle_route_id" for="">Ruta: {{employee_service.employee_info.route_name}}</label></b>
   <router-outlet></router-outlet>
 </div>

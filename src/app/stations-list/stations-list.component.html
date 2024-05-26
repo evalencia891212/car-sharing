@@ -1,0 +1,44 @@
+<div class="container complement-list" style="margin-top: 60px">
+
+
+    <form>
+        <div class="mb-3 row">
+            <label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+            <div class="col-xs-3 col-sm-auto">
+                <input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+            </div>            
+        </div>
+    </form>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre Estación</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr *ngFor="let station of station_service.stations_list_route">
+                    
+                    <!-- <td *ngIf="station.marker_type=='marker'"><ngb-highlight [result]="station.station_name + station.station_id" [term]="filter.value" /></td> -->
+                    <td *ngIf="station.marker_type=='station'"><ngb-highlight [result]="station.station_name" [term]="filter.value" /></td>
+                    <td *ngIf="station.marker_type=='station'">
+                        <a class="btn btn-secondary text-white" (click)="emitUpdate(station)">
+                            <i class="far fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger text-white" (click)="emitRemove(station)">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                        <a class="btn btn-secondary text-white" (click)="emitEmployes(station)">
+                            <i class="fas fa-users"></i>
+                        </a>
+                      </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align: center">Lista de Modelos</td>
+                </tr>
+            
+        </tbody>
+    </table>
+    </div>
+
+    

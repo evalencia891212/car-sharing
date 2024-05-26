@@ -1,0 +1,55 @@
+    <div class="row" style="margin-left: 50px" >
+      
+        <div class="col-4" >
+          <label for="route_search">Ruta</label>
+          <input id="route_search" type="text" class="form-control" name="route_search"
+          #route_search [(ngModel)]="selected_route"  autocomplete="off"/>
+          <ul #routeSelectList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+            <li (click)='selectRoute(route)' class="list-group-item"
+              *ngFor="let route of route_list">
+              <span>{{route.route_name}} </span>
+            </li>
+          </ul>
+        </div>
+        <div class="col-2">
+          <label>Largo de la ruta{{station_service.route_long}}</label>
+        </div>
+          
+    </div>
+     <div  class="row">
+        <div class="col-md-8" style="margin-top: 30px;">
+      
+            <google-map id="map" height="700px" *ngIf="selected_route != ''"
+                    width="1100px"
+                    [center]="center"
+                    [zoom]="zoom"
+                    (mapClick)="open($event)"
+                    (mapMousemove)="move($event)">
+                    <span>
+        
+                    </span>
+                    <map-marker *ngFor="let position of station_service.markerStationPositionsByRute; let i=index" [position]="position" [options]="getStationOption(i)" (mapDragend)="updateStation($event,i)"></map-marker>
+                    <map-polyline [path]="vertices" /> 
+                    
+                    <map-directions-renderer [directions]="directionsResults" /> 
+                    <!-- <map-directions-renderer *ngFor="let directions of pathDirectionsResults" [directions]="directions" /> -->
+                    
+                    
+          </google-map>
+         
+        <div>Latitude: {{display?.lat}}</div>
+        <div>Longitude: {{display?.lng}}</div>
+        </div>
+        
+        <div class="col-md-3" cdkScrollable >
+            <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListAutoScrollDisabled]="false" [cdkDropListAutoScrollStep]="35">
+                <div *ngFor="let station of station_service.stations_sequence_list;" class="example-box" cdkDrag>{{station.station_name}}</div>
+            </div> 
+        </div>
+     </div>
+
+
+
+ 
+
+

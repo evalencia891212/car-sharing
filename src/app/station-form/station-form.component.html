@@ -1,0 +1,74 @@
+<form #stationForm="ngForm" >
+ 
+    <input type="hidden" name="station_id" #station_id="ngModel" [(ngModel)]="station_service.selected_station.station_id">
+
+    <div class="row">
+      <div class="col-3">
+        <label for="station_name">Estación</label>
+      </div>
+
+      <div class="col-9">
+        <div class="form-group">
+          <input id="station_name" type="text" class="form-control my-controll" name="station_name"
+          #station_name="ngModel" [(ngModel)]="station_service.selected_station.station_name" placeholder="Nombre de Estación" autocomplete="off" [disabled]="!isStation()" />
+        </div>
+
+      </div>  
+    </div>   
+    <div class="row">
+        <div class="col-3">
+            <label for="route_search">Ruta(s)</label>
+        </div>
+        <div class="col-9" style="margin-bottom: 50px;margin-top: 10px;">
+            <input id="route_search" type="text" class="form-control" name="route_search"
+            #route_search [(ngModel)]="selected_route" autocomplete="off"  [disabled]="isUpdate()" />
+            <ul #routeSelectList class="list-group" style="position: absolute; z-index: 999; cursor: pointer; ">
+              <li (click)='selectRoutes(route)' class="list-group-item"
+                *ngFor="let route of route_select_list;index as i">
+                <span>{{route.route_name}} </span> <!-- <input class="form-check-input" type="checkbox" value="" id="check_route{{i}}" name="check_route" [checked] ="route.selected" (change)="setRouteSelectValue(route.route_id,route.selected)"> -->
+              </li>
+            </ul>
+        </div>
+    </div> 
+    <div class="row"></div>
+    <div class="col-3">
+      <label for="check_in">Check In</label>
+  </div>
+    <div class="col-5">
+      <ngb-timepicker id="check_in" name="check_in" 
+      #check_in = "ngModel"  [(ngModel)]="station_service.check_in" [disabled]="!isStation()"/>
+    </div>
+    <div class="row">
+    
+      <div class="col-6">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="typeStationRadios" id="station" value="station" [checked]="isStation()" (change)="onChangeStationType($event)" >
+          <label class="form-check-label" for="exampleRadios1">
+           Estacion
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="typeStationRadios" id="marker" value="marker"  [checked]="!isStation()" (change)="onChangeStationType($event)">
+          <label class="form-check-label" for="exampleRadios2">
+            Marcador
+          </label>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="coursetationRadios" id="company" value="1" [checked]="isCompanyCourse()" (change)="onChangeStationCourse($event)" >
+          <label class="form-check-label" for="exampleRadios1">
+           Rumbo Empresa
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="courseStationRadios" id="home" value="2"  [checked]="!isCompanyCourse()" (change)="onChangeStationCourse($event)">
+          <label class="form-check-label" for="exampleRadios2">
+            Rumbo Casa
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    
+  </form>

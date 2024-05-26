@@ -1,5 +1,5 @@
 import { AsyncPipe, DecimalPipe } from '@angular/common';
-import { Component, inject, Input, OnInit, PipeTransform, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, PipeTransform, TemplateRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalDismissReasons, NgbHighlight, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { map, Observable, startWith } from 'rxjs';
@@ -27,84 +27,66 @@ export class EmployeListComponent implements OnInit {
 
   private modalService = inject(NgbModal);
 	closeResult = '';
+  search!: string;
 
   @Input({ required: false }) employees!: Employee[];
   @Input({ required: false }) content!: TemplateRef<any>;
+
+  @Output() onAddClick = new EventEmitter<String>();
+  @Output() onUpdateClick = new EventEmitter<Employee>();
+  @Output() onRemoveClick = new EventEmitter<Employee>();
+  @Output() onUserClick = new EventEmitter<Employee>();
   
   public i = 1;
 
   employees_: Observable<Employee[]> | undefined;
   filter = new FormControl('', { nonNullable: true });
+  employee_list: Employee[] | undefined;
 
  public totalItems: number = 0;
-  public page: number = 1;
-	pageSize = 4;
+ public page: number = 1;
  public  showPagination: boolean = true;
 
-  constructor(pipe: DecimalPipe ,public employeService: EmployeeService){
-    debugger;
+  constructor(pipe: DecimalPipe ,public employee_service: EmployeeService){
     this.employees_ = this.filter.valueChanges.pipe(
 			startWith(''),
 			map((text) => search(text, pipe)),
 		);
-    this.totalItems = this.employeService.employee_list.length;
+    this.totalItems = this.employee_service.employee_list.length;
    
   }
   ngOnInit(): void {
-    debugger
-    this.employeService.getEmployees();
+    this.employee_service.getEmployees();
    
   }
   
-
-  onEdit(employe: Employee) {
-    this.employeService.selected_employee = Object.assign({}, employe);
-  }
-
-  onDelete(employee_id: number) {
-    if(confirm('Are you sure you want to delete it?')) {
-     this.employeService.deleteEmployee(employee_id);
-      //this.toastr.warning('Deleted Successfully', 'Product Removed');
+  filterTable(){
+    
+    console.log(this.search)
+    this.page = 1;
+    if(this.search != ""){
+      let match_employees = this.employee_service.employee_list.filter(employee => employee.name.toUpperCase().includes(this.search.toUpperCase()));
+      this.employee_service.employee_list_page = match_employees.slice(
+        (this.page - 1) * this.employee_service.pageSize,
+        (this.page - 1) * this.employee_service.pageSize + this.employee_service.pageSize,
+      );
+    }else {
+      this.refreshEmployees()
     }
+    
   }
 
   refreshEmployees() {
-		this.employeService.employee_list = this.employeService.employee_list.map((name, i) => ({ id: i + 1, ...name })).slice(
-			(this.page - 1) * this.pageSize,
-			(this.page - 1) * this.pageSize + this.pageSize,
+    
+		this.employee_service.employee_list_page = this.employee_service.employee_list.slice(
+			(this.page - 1) * this.employee_service.pageSize,
+			(this.page - 1) * this.employee_service.pageSize + this.employee_service.pageSize,
 		);
+    
 	}
 
-  open(content: TemplateRef<any>,employe:Employee) {
-
-    debugger
-    if (employe != undefined)
-    this.onEdit(employe);
-    else
-    this.employeService.selected_employee = new Employee;
-
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
-			(result: any) => {
-				this.closeResult = `Closed with: ${result}`;
-        debugger;
-        employe = this.employeService.selected_employee;
-        if(employe.employee_id == null)
-        this.employeService.saveEmployee(employe);
-        else
-        this.employeService.updateEmployee(employe);
-        this.resetList();
-			},
-			(reason: any) => {
-				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-			},
-		);
-	}
-
-  resetList()
-  {
-    this.employeService.selected_employee = new Employee();  
-  }
   
+ 
 
   private getDismissReason(reason: any): string {
 		switch (reason) {
@@ -117,6 +99,23 @@ export class EmployeListComponent implements OnInit {
 		}
 	}
 
+  public emitAdd(){
+    this.onAddClick.emit("new");
+  }
+
+  public emitUpdate(employee:Employee){
+    ;
+    this.employee_service.selected_employee = employee;
+    this.onUpdateClick.emit(employee);
+  }
+
+  public emitRemove(employee:Employee){
+    this.onRemoveClick.emit(employee);
+  }
+
+  public emitUser(employee:Employee){
+    this.onUserClick.emit(employee);
+  }
 
   
 

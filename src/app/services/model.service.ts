@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Model } from '../models/models';
 
 @Injectable({
@@ -18,20 +18,27 @@ export class ModelService {
    ).pipe(
      map(message => message as any)
    ).subscribe(respose => {
-     debugger;
        this.models_list = respose;
    });
  }
 
+ public getModelById(model_id:number):Observable<Model[]> {
+  return this.httpClient.get('http://localhost:3000/models/modelById/'+model_id).pipe(
+   map(data => data as Model[])
+ ).pipe(
+   map(message => message as any)
+ )
+}
+
+
+
  public saveModel(payload: Model) {
-  debugger
   payload.active = 1;
   return this.httpClient.post('http://localhost:3000/models',payload).pipe(
     map(data => data as Model)
   ).pipe(
     map(message => message as any)
   ).subscribe(respose => {
-    debugger;
       this.models_list.push(respose[0]);
   });
   }
@@ -43,7 +50,6 @@ export class ModelService {
     ).pipe(
       map(message => message as any)
     ).subscribe(response => {
-      debugger;
       console.log(response);
       this.models_list.forEach(model => {
        if(model.model_id == model_id ){
@@ -66,9 +72,16 @@ export class ModelService {
   ).pipe(
     map(message => message as any)
   ).subscribe(respose => {
-    debugger;
       this.models_list = respose;
   });
+}
+
+getModelByID(model_id:number): any {
+  let model = this.models_list.find(model => model.model_id == model_id);
+  if(model != undefined)
+   return model;
+  else
+   return;
 }
 
 }
