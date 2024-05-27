@@ -11,7 +11,7 @@
     </div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Guardar</button>
 	</div>
 </ng-template> 
 
@@ -26,15 +26,15 @@
     </div>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Guardar</button>
 	</div>
 </ng-template> 
 
-<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-left: 50px" (click)="ngOnInit()">
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs" style="margin-left: 20px" (click)="ngOnInit()">
 	<li [ngbNavItem]="1">
 		<button ngbNavLink>Estaciones</button>
 		<ng-template ngbNavContent>
-      <div class="row" style="margin-left: 50px" >
+      <div class="row" style="margin-left: 20px" >
       
         <div class="col-4" >
           <label for="route_search">Ruta</label>
@@ -47,16 +47,14 @@
             </li>
           </ul>
         </div>
-        <div class="col-2">
-          <label>Largo de la ruta{{station_service.route_long}}</label>
-        </div>
+        
           
     </div>
-			<div class="row" style="margin-left: 50px">
+			<div class="row" style="margin-left: 30px">
         <div class="col-8" style="margin-top: 30px;">
           
-            <google-map id="map" height="700px"
-                    width="1100px"
+            <google-map id="map" height="600px"
+                    width="1000px"
                     [center]="center"
                     [zoom]="zoom"
                     (mapClick)="open(content,$event)"
@@ -72,8 +70,7 @@
                    
           </google-map>
          
-        <div>Latitude: {{display?.lat}}</div>
-        <div>Longitude: {{display?.lng}}</div>
+         
         </div>
       
         <div class="col-4">
@@ -95,7 +92,7 @@
 		<button ngbNavLink>Estaciones-Rutas</button>
 		<ng-template ngbNavContent navChange="setInputRoutesEvent()">
 
-      <div style="margin-left: 50px"><app-station-sequence [tour_mode]="false"></app-station-sequence></div>
+      <div style="margin-left: 20px"><app-station-sequence [tour_mode]="false"></app-station-sequence></div>
 			
 		</ng-template>
 	</li>

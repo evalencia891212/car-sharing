@@ -11,17 +11,21 @@
             <tr>
                 <th scope="col">Numero de empleado</th>
                 <th scope="col">Nombre</th>
+                <th scope="col">Placas</th>
                 <th scope="col">Vehículo</th>
                 <th scope="col"> Rendimiento</th>
+                <th scope="col"> Distancia</th>
                 <th scope="col"> Emisiones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let row of report_service.globalCO2emissions">
                 <td>{{row.employee_number}}</td> 
-                <td>{{row.name}}</td> 
+                <td>{{row.name + ' ' + row.last_name}}</td> 
+                <td>{{row.licence_plate}}</td> 
                 <td>{{row.model_name}} {{row.model_year}}</td>   
-                <td>{{row.performance}}</td>
+                <td>{{row.performance}}km/L</td>
+                <td>{{row.distance}}km.</td>
                 <td>{{formatEmitions(row)}}</td>
             </tr>   
             <tr [ariaColSpan]="4"><b>Total: {{formatNumber(total_emision_acumulated)}}</b></tr>  

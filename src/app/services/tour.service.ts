@@ -118,7 +118,7 @@ export class TourService {
   }
 
   confirmExternalTour(employee_id:number):Observable<any> {
-    return this.httpClient.put(environment.apiHost + '/externalTours/'+employee_id,null)
+    return this.httpClient.post(environment.apiHost + '/tours/externalTours/'+employee_id,null)
   }
 
   

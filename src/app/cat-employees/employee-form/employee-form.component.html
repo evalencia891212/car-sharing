@@ -7,7 +7,7 @@
       <div class="row form_row">
   
         <div class="col-3">
-          <label for="employee_number">Numero empleado</label>
+          <label for="employee_number">Número empleado</label>
         </div>
   
         <div class="col-9">
@@ -71,7 +71,7 @@
   
       <div class="row form_row">
         <div class="col-3">
-          <label for="out_num">Numero Ext.</label>
+          <label for="out_num">Número Ext.</label>
         </div>
         <div class="col-9">
           
@@ -82,7 +82,7 @@
   
       <div class="row form_row">
         <div class="col-3">
-          <label for="int_num">Numero Int.</label>
+          <label for="int_num">Número Int.</label>
         </div>
         <div class="col-9">
           <input id="int_num" type="text" class="form-control" name="interior_number"
@@ -94,14 +94,12 @@
         <div class="col-3">
           <label for="neighborhood">Colonia.</label>
         </div>
-        <div class="col-3">
+        <div class="col-4">
           <input id="neighborhood" type="text" class="form-control" name="neighborhood"
           #neighborhood="ngModel" [(ngModel)]="employe_service.selected_employee.neighborhood" placeholder="Colonia." autocomplete="off"  />
         </div>
-        <div class="col-3">
-          <label for="city">Ciudad.</label>
-        </div>
-        <div class="col-3">
+      
+        <div class="col-5">
           <input id="city" type="text" class="form-control" name="city"
           #city="ngModel" [(ngModel)]="employe_service.selected_employee.city" placeholder="Ciudad." autocomplete="off"  />
         </div>
@@ -167,11 +165,11 @@
       </div>
       <div class="row form_row">
         <div class="col-3">
-          <label for="location">Geo Localizacion</label>
+          <label for="location">Geolocalización.</label>
         </div>
         <div class="col-4">
           <input id="location" type="text" class="form-control"  name="location"
-          #location="ngModel" [(ngModel)]="employe_service.selected_employee.location" placeholder="Geo Localizacion" autocomplete="off"  />
+          #location="ngModel" [(ngModel)]="employe_service.selected_employee.location" placeholder="Geolocalización" autocomplete="off"  />
         </div>
         <div class="col-2">
           <button class="btn btn-secondary" (click)="geocoding();" >Buscar

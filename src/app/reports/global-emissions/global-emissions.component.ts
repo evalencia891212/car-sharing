@@ -17,7 +17,9 @@ export class GlobalEmissionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.report_service.getGlobalEmissions();
+    this.report_service.getGlobalEmissions().subscribe(respose => {    
+      this.report_service.globalCO2emissions = respose;
+    });
     this.total_emision_acumulated = 0
     //this.downloadPDF();
   }

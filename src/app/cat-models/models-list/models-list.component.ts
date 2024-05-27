@@ -24,6 +24,11 @@ function search(this: any, text: string, pipe: PipeTransform): Model[] {
 })
 export class ModelsListComponent implements OnInit{
 
+   //Pagination Variables
+   public page: number = 1;
+   //Filter Variables
+   search!: string;
+
   @Output() onAddModelClick = new EventEmitter<String>();
   @Output() onUpdateModelClick = new EventEmitter<Model>();
   @Output() onRemoveModelClick = new EventEmitter<Model>();
@@ -37,8 +42,8 @@ export class ModelsListComponent implements OnInit{
   modelsForm!: NgForm
 
   public totalItems: number = 0;
-  public page: number = 1;
-	pageSize = 4;
+
+	pageSize = 10;
   public  showPagination: boolean = true;
 
  
@@ -70,10 +75,10 @@ export class ModelsListComponent implements OnInit{
     }
   }
 
-  refreshEmployees() {
-		this.model_service.models_list = this.model_service.models_list.map((model_name, i) => ({ id: i + 1, ...model_name })).slice(
-			(this.page - 1) * this.pageSize,
-			(this.page - 1) * this.pageSize + this.pageSize,
+  refreshModels() {
+		this.model_service.models_list_page = this.model_service.models_list.slice(
+			(this.page - 1) * this.model_service.pageSize,
+			(this.page - 1) * this.model_service.pageSize + this.model_service.pageSize,
 		);
 	}
 
@@ -129,6 +134,22 @@ export class ModelsListComponent implements OnInit{
 
   public emitRemove(model:Model){
     this.onRemoveModelClick.emit(model);
+  }
+
+  filterTable(){
+    debugger
+    console.log(this.search)
+    this.page = 1;
+    if(this.search != ""){
+      let match_models = this.model_service.models_list.filter(model => model.model_name.toUpperCase().includes(this.search.toUpperCase()));
+      this.model_service.models_list_page = match_models.slice(
+        (this.page - 1) * this.model_service.pageSize,
+        (this.page - 1) * this.model_service.pageSize + this.model_service.pageSize,
+      );
+    }else {
+      this.refreshModels()
+    }
+    
   }
 
 

@@ -3,10 +3,17 @@
 
 <form>
 	<div class="mb-3 row">
-		<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+		<label for="table-filtering-search" class="col-xs-3 col-sm-auto col-form-label">Buscar:</label>
 		<div class="col-xs-3 col-sm-auto">
-			<input id="table-filtering-search" class="form-control" type="text" [formControl]="filter" />
+			<input id="table-filtering-search" class="form-control" type="text" name="filter_search"
+            #filter_search="ngModel" [(ngModel)]="search"/>
 		</div>
+
+		<div class="col-2">
+			<button class="btn btn-primary" (click)="filterTable()">
+				<i class="fas fa-search"></i>
+			</button>
+		  </div>
 		
       
 			<div class="col-2">
@@ -28,7 +35,7 @@
 		</tr>
 	</thead>
 	<tbody>
-			<tr *ngFor="let model of model_service.models_list">
+			<tr *ngFor="let model of model_service.models_list_page">
 				
 				<td><ngb-highlight [result]="model.model_name" [term]="filter.value" /></td>
 				<td>{{model.model_year}}</td>
@@ -48,5 +55,14 @@
 		
 	</tbody>
 </table>
+<div class="d-flex justify-content-between p-2">
+	<ngb-pagination
+		[collectionSize]="model_service.models_list.length"
+		[(page)]="page"
+		[pageSize]="10"
+		(pageChange)="refreshModels()"
+	>
+	</ngb-pagination>
+</div>
 </div>
 

@@ -137,7 +137,7 @@ export class ToursComponent implements OnInit,OnDestroy {
 
   boardingExternal(){
     if(confirm('Desea abordar un vehículo externo?')) {
-      this.tour_service.confirmExternalTour(this.tour_detail.tour_detail_id).subscribe(response => {
+      this.tour_service.confirmExternalTour(this.employee_service.employee_info.employee_id).subscribe(response => {
           if(response){
             this.external_tour_available=false;
             alert("Abordaje confirmado con éxito")
@@ -193,7 +193,7 @@ export class ToursComponent implements OnInit,OnDestroy {
 	}
 
   getEmployeeNumber(employee_id:number) {
-    
+    debugger
     let employee_number = this.tour_service.employee_tour_list.find(employee => employee.employee_id == employee_id)?.employee_number;
     return employee_number;
   }

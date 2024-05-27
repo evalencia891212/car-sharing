@@ -174,7 +174,7 @@ export class StationSequenceComponent implements OnInit{
 
   showDistanceToOfice(){
     this.station_service.onStationsReady.subscribe(data => {
-      
+      debugger;
       if(data == true){
         this.vertices = this.station_service.markerStationPositionsByRute;
         this.office_service.lastStationToOffice().then(result =>{

@@ -40,7 +40,7 @@ export class StationService {
          if(station.marker_type == 'station')
           this.stationMarkerOptionsList.push( {title:station.station_name, icon:'https://maps.gstatic.com/mapfiles/ms2/micons/bus.png', draggable:false});
          else
-           this.stationMarkerOptionsList.push( {title:station.station_name, icon:'http://maps.gstatic.com/mapfiles/ms2/micons/flag.png', draggable:false});
+           this.stationMarkerOptionsList.push( {title:station.station_name + station.station_id, icon:'http://maps.gstatic.com/mapfiles/ms2/micons/flag.png', draggable:false});
        })
        
 
@@ -49,6 +49,7 @@ export class StationService {
  }
 
  public getStationsSequenceByRoute(route_id:number) {
+  debugger
    this.httpClient.get('http://localhost:3000/stations/' + route_id).pipe(
    map(data => data as StationSequence[])
  ).pipe(
@@ -89,7 +90,7 @@ calculateRouteLong(){
   let firstMarker:  google.maps.LatLngLiteral = {lat:0,lng:0};
   let secondMarker: google.maps.LatLngLiteral = {lat:0,lng:0};
   let routeDistance = 0;
-  
+  this.route_long=0;
   this.markerStationPositionsByRute.forEach((marker, index) => {
     if(firstMarker.lat == 0) {
       firstMarker = marker;
@@ -106,7 +107,7 @@ calculateRouteLong(){
     
   })
   
-  this.route_long = routeDistance;
+  this.route_long =  parseFloat(routeDistance.toFixed(2));
   console.log(routeDistance);
 }
 

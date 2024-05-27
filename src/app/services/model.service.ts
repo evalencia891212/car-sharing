@@ -10,6 +10,8 @@ export class ModelService {
   
   public selected_model:Model = new Model();
   public models_list: Model[] =[];
+  public models_list_page: Model[] =[];
+  pageSize = 10;
   constructor(private httpClient: HttpClient) { }
   
   public getModels() {
@@ -19,6 +21,9 @@ export class ModelService {
      map(message => message as any)
    ).subscribe(respose => {
        this.models_list = respose;
+       if(respose.length > this.pageSize)
+        this.models_list_page = respose.slice(0,this.pageSize);
+
    });
  }
 

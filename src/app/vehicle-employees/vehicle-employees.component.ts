@@ -43,8 +43,8 @@ export class VehicleEmployeesComponent implements OnInit{
     this.model_service.getModelById(vehicle.model_id).subscribe(response =>{
       this.selected_vehicle_model = response[0];
     })
-    
-    this.vehicle_service.getVehicleEmployee(this.selected_vehicle_id).subscribe(response => {
+    debugger
+    this.vehicle_service.getVehicleEmployee(vehicle.vehicle_id).subscribe(response => {
       this.employee_vehicle_list = response;
     })
     
@@ -54,6 +54,7 @@ export class VehicleEmployeesComponent implements OnInit{
     if(this.employee_vehicle_list.length == this.selected_vehicle_model.pasenger_capability){
       alert("Se ha alcanzado el maximo de pasajeros")
     }
+    debugger
     this.employee_service.getEmployeeVehicleByNumber(this.employee_number).subscribe(respose => {
       
       if(respose.length != 0) {

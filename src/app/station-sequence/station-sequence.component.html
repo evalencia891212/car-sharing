@@ -11,9 +11,7 @@
             </li>
           </ul>
         </div>
-        <div class="col-2">
-          <label>Largo de la ruta{{station_service.route_long}}</label>
-        </div>
+        
           
     </div>
      <div  class="row">
@@ -37,13 +35,14 @@
                     
           </google-map>
          
-        <div>Latitude: {{display?.lat}}</div>
-        <div>Longitude: {{display?.lng}}</div>
+          <div class="col-3">
+            <b><label>Largo de la ruta: {{station_service.route_long}}</label></b>
+          </div>
         </div>
         
         <div class="col-md-3" cdkScrollable >
             <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" [cdkDropListAutoScrollDisabled]="false" [cdkDropListAutoScrollStep]="35">
-                <div *ngFor="let station of station_service.stations_sequence_list;" class="example-box" cdkDrag>{{station.station_name}}</div>
+                <div *ngFor="let station of station_service.stations_sequence_list;" class="example-box" cdkDrag>{{station.station_name + station.station_id}}</div>
             </div> 
         </div>
      </div>

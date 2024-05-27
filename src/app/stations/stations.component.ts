@@ -246,7 +246,7 @@ drop(event: CdkDragDrop<string[]>) {
            //let markerPositions: google.maps.LatLgLiteral[] = [{lat: 30.021441570898386,lng: 28.12521446875}];
            this.markerPositions.push({lat:lat_lng[0],lng:lat_lng[1]});
           
-           this.employeemarkerOptionsList.push({title:employee.name + ' ' + employee.last_name, icon:'http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png',draggable:false});
+           this.employeemarkerOptionsList.push({title:employee.name + ' ' + employee.last_name + '-' + employee.employee_number, icon:'http://maps.gstatic.com/mapfiles/ms2/micons/homegardenbusiness.png',draggable:false});
          })
     });
   }

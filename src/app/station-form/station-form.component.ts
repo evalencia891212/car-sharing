@@ -138,7 +138,8 @@ export class StationFormComponent implements OnInit, AfterViewInit {
 
 
     isUpdate() {
-      if(this.station_service.selected_station.station_id!=0 || this.station_service.selected_station.station_id!=null )
+      debugger
+      if(this.station_service.selected_station.station_id)
         return true;
        else
         return false;
