@@ -10,7 +10,7 @@ import { EmployeeService } from './services/employee.service';
 })
 export class AppComponent {
   title = 'eco-car-sharing';
-  sidebarExpanded = true;
+  sidebarExpanded = false;
 
   constructor(public office_service: OfficeService,public employee_service:EmployeeService){
 

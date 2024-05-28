@@ -25,7 +25,7 @@ export class VehicleService {
 
   public getVehicles() {
 
-    return this.httpClient.get('http://localhost:3000/vehicles').pipe(
+    return this.httpClient.get(environment.apiHost + '/vehicles').pipe(
       map(data => data as Vehicle[])
     ).pipe(
       map(message => message as any)
@@ -39,7 +39,7 @@ export class VehicleService {
 
   public getVehiclesByRoute(route_id:number) {
 
-    return this.httpClient.get('http://localhost:3000/vehicles/byRoute/' + route_id ).pipe(
+    return this.httpClient.get(environment.apiHost + '/vehicles/byRoute/' + route_id ).pipe(
       map(data => data as Vehicle[])
     ).pipe(
       map(message => message as any)
@@ -52,7 +52,7 @@ export class VehicleService {
 
   public getVehiclesAvailables() {
     this.available_vehicles_list = [];
-    return this.httpClient.get('http://localhost:3000/vehicles/availables').pipe(
+    return this.httpClient.get(environment.apiHost + '/vehicles/availables').pipe(
       map(data => data as Vehicle[])
     ).pipe(
       map(message => message as any)
@@ -77,7 +77,7 @@ export class VehicleService {
   public saveVehicle(payload: Vehicle) {
     
     payload.active = "1";
-    return this.httpClient.post('http://localhost:3000/vehicles',payload).pipe(
+    return this.httpClient.post(environment.apiHost + '/vehicles',payload).pipe(
       map(data => data as Vehicle)
     ).pipe(
       map(message => message as any)
@@ -90,7 +90,7 @@ export class VehicleService {
  public updateVehicle(payload: Vehicle) {
   
   var vehicle_id = payload.vehicle_id; 
-  return this.httpClient.put('http://localhost:3000/vehicles/' + vehicle_id,payload).pipe(
+  return this.httpClient.put(environment.apiHost + '/vehicles/' + vehicle_id,payload).pipe(
     map(data => data as Vehicle)
   ).pipe(
     map(message => message as any)
@@ -110,7 +110,7 @@ export class VehicleService {
 }
 
 public deleteVehicle(vehicle_id:number){
-  return this.httpClient.delete('http://localhost:3000/vehicles/'+vehicle_id).subscribe(response => {
+  return this.httpClient.delete(environment.apiHost + '/vehicles/'+vehicle_id).subscribe(response => {
       console.log(response);
    })
 }

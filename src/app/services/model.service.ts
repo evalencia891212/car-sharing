@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Model } from '../models/models';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ModelService {
   constructor(private httpClient: HttpClient) { }
   
   public getModels() {
-    this.httpClient.get('http://localhost:3000/models').pipe(
+    this.httpClient.get(environment.apiHost + '/models').pipe(
      map(data => data as Model[])
    ).pipe(
      map(message => message as any)
@@ -28,7 +29,7 @@ export class ModelService {
  }
 
  public getModelById(model_id:number):Observable<Model[]> {
-  return this.httpClient.get('http://localhost:3000/models/modelById/'+model_id).pipe(
+  return this.httpClient.get(environment.apiHost + '/models/modelById/'+model_id).pipe(
    map(data => data as Model[])
  ).pipe(
    map(message => message as any)
@@ -39,7 +40,7 @@ export class ModelService {
 
  public saveModel(payload: Model) {
   payload.active = 1;
-  return this.httpClient.post('http://localhost:3000/models',payload).pipe(
+  return this.httpClient.post(environment.apiHost + '/models',payload).pipe(
     map(data => data as Model)
   ).pipe(
     map(message => message as any)
@@ -50,7 +51,7 @@ export class ModelService {
 
   public updateModel(payload: Model) {
     let model_id = payload.model_id;
-    return this.httpClient.put('http://localhost:3000/models/' + model_id,payload).pipe(
+    return this.httpClient.put(environment.apiHost + '/models/' + model_id,payload).pipe(
       map(data => data as Model)
     ).pipe(
       map(message => message as any)
@@ -72,7 +73,7 @@ export class ModelService {
 
 
  public deleteModel(model_id:number){
-  return this.httpClient.delete('http://localhost:3000/models/'+model_id).pipe(
+  return this.httpClient.delete(environment.apiHost + '/models/'+model_id).pipe(
     map(data => data as Model[])
   ).pipe(
     map(message => message as any)

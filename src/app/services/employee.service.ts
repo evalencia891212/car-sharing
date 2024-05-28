@@ -128,7 +128,7 @@ export class EmployeeService {
 
   public getEmployeInfoVehicleByUser(user_id:number){
     
-    return this.httpClient.get('http://localhost:3000/employees/employeeInfo/' + user_id).pipe(
+    return this.httpClient.get(environment.apiHost + '/employees/employeeInfo/' + user_id).pipe(
       map(data => data as EmployeeInfo)
     ).pipe(
       map(message => message as any)
@@ -156,7 +156,7 @@ export class EmployeeService {
  
   public getPassengerInfoVehicleByUser(user_id:number){
     
-    return this.httpClient.get('http://localhost:3000/employees/getPassengerIngo/' + user_id).pipe(
+    return this.httpClient.get( environment.apiHost + '/employees/getPassengerIngo/' + user_id).pipe(
       map(data => data as EmployeeInfo)
     ).pipe(
       map(message => message as any)
