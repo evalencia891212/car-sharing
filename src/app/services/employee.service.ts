@@ -109,7 +109,7 @@ export class EmployeeService {
   }
 
   public deleteEmployee(employee_id:number){
-    return this.httpClient.delete('http://localhost:3000/employees/'+employee_id).pipe(
+    return this.httpClient.delete(environment.apiHost + '/employees/'+employee_id).pipe(
       map(data => data as Employee[])
     ).pipe(
       map(message => message as any)
@@ -119,7 +119,7 @@ export class EmployeeService {
   }
 
   public getEmployeesLatLng():Observable<Employee[]> {
-   return this.httpClient.get('http://localhost:3000/employees/employeesLatLng').pipe(
+   return this.httpClient.get(environment.apiHost + '/employees/employeesLatLng').pipe(
      map(data => data as Employee[])
    ).pipe(
      map(message => message as any)
