@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Route } from '../models/route';
 import { Observable, map } from 'rxjs';
 import { RouteSelect } from '../models/route-select';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class RouteService {
 
   public getRoutes() {
     
-    this.httpClient.get('http://localhost:3000/routes').pipe(
+    this.httpClient.get(environment.apiHost + '/routes').pipe(
      map(data => data as Route[])
    ).pipe(
      map(message => message as any)
@@ -33,7 +34,7 @@ export class RouteService {
 
  public _getRoutes():Observable<Route[]> {
   
-  return this.httpClient.get('http://localhost:3000/routes').pipe(
+  return this.httpClient.get(environment.apiHost + '/routes').pipe(
    map(data => data as Route[])
  ).pipe(
    map(message => message as any)
@@ -43,7 +44,7 @@ export class RouteService {
  public saveRoutes(payload: Route) {
   
   payload.active = 1;
-  return this.httpClient.post('http://localhost:3000/routes',payload).pipe(
+  return this.httpClient.post(environment.apiHost +'/routes',payload).pipe(
     map(data => data as Route)
   ).pipe(
     map(message => message as any)
@@ -55,7 +56,7 @@ export class RouteService {
 
   public updateRoute(payload: Route) {
     let route_id = payload.route_id;
-    return this.httpClient.put('http://localhost:3000/routes/' + route_id,payload).pipe(
+    return this.httpClient.put(environment.apiHost + '/routes/' + route_id,payload).pipe(
       map(data => data as Route)
     ).pipe(
       map(message => message as any)
@@ -71,7 +72,7 @@ export class RouteService {
   }
 
   public deleteRoute(route_id:number){
-    return this.httpClient.delete('http://localhost:3000/routes/'+route_id).pipe(
+    return this.httpClient.delete(environment.apiHost + 'routes/'+route_id).pipe(
       map(data => data as Route[])
     ).pipe(
       map(message => message as any)

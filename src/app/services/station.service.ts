@@ -4,6 +4,7 @@ import { Station } from '../models/station';
 import { map } from 'rxjs';
 import { StationSequence } from '../models/station-sequence';
 import { Marker } from 'mapbox-gl';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class StationService {
   constructor(private httpClient: HttpClient) { }
 
   public getStations() {
-    this.httpClient.get('http://localhost:3000/stations').pipe(
+    this.httpClient.get(environment.apiHost + '/stations').pipe(
      map(data => data as Station[])
    ).pipe(
      map(message => message as any)
@@ -50,7 +51,7 @@ export class StationService {
 
  public getStationsSequenceByRoute(route_id:number) {
   debugger
-   this.httpClient.get('http://localhost:3000/stations/' + route_id).pipe(
+   this.httpClient.get(environment.apiHost + '/stations/' + route_id).pipe(
    map(data => data as StationSequence[])
  ).pipe(
    map(message => message as any)
@@ -75,7 +76,7 @@ export class StationService {
 }
 
 public getStationsByRoute(route_id:number){
-  this.httpClient.get('http://localhost:3000/stations/byRoute/' + route_id).pipe(
+  this.httpClient.get(environment.apiHost + '/stations/byRoute/' + route_id).pipe(
     map(data => data as Station[])
   ).pipe(
     map(message => message as any)
@@ -131,7 +132,7 @@ calculateDistanceToOffice(){
   
   payload.active = 1;
   payload.check_in = this.check_in.hour.toString().padStart(2,'00') + ":" + this.check_in.minute.toString().padStart(2,'00')
-  return this.httpClient.post('http://localhost:3000/stations/',payload).pipe(
+  return this.httpClient.post('/stations/',payload).pipe(
     map(data => data as Station)
   ).pipe(
     map(message => message as any)
@@ -143,7 +144,7 @@ calculateDistanceToOffice(){
 
   public updateStation(payload: Station) {
     let station_id = payload.station_id;
-    return this.httpClient.put('http://localhost:3000/stations/' + station_id,payload).pipe(
+    return this.httpClient.put(environment.apiHost + '/stations/' + station_id,payload).pipe(
       map(data => data as Station)
     ).pipe(
       map(message => message as any)
@@ -162,7 +163,7 @@ calculateDistanceToOffice(){
   }
 
   public deleteStation(station_id:number){
-    return this.httpClient.delete('http://localhost:3000/stations/' + station_id).pipe(
+    return this.httpClient.delete(environment.apiHost + '/stations/' + station_id).pipe(
       map(data => data as Station[])
     ).pipe(
       map(message => message as any)
@@ -202,7 +203,7 @@ calculateDistanceToOffice(){
     })
 
     var payload = this.stations_sequence_list;
-    return this.httpClient.put('http://localhost:3000/stations/sequence/' + route_id,payload).pipe(
+    return this.httpClient.put(environment.apiHost + '/stations/sequence/' + route_id,payload).pipe(
       map(data => data as Station[])
     ).pipe(
       map(message => message as any)
