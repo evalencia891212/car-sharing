@@ -21,6 +21,7 @@
                     
                     <!-- <td *ngIf="station.marker_type=='marker'"><ngb-highlight [result]="station.station_name + station.station_id" [term]="filter.value" /></td> -->
                     <td *ngIf="station.marker_type=='station'"><ngb-highlight [result]="station.station_name" [term]="filter.value" /></td>
+                    <td *ngIf="station.marker_type=='station'">{{station.check_in}}</td>
                     <td *ngIf="station.marker_type=='station'">
                         <a class="btn btn-secondary text-white" (click)="emitUpdate(station)">
                             <i class="far fa-edit"></i>

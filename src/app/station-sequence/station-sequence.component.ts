@@ -93,7 +93,7 @@ export class StationSequenceComponent implements OnInit{
   };
     this.directionsResults$ = this.mapDirectionsService.route(request).pipe(map(response => response.result));
     this.directionsResults$.subscribe(result => {
-        
+      debugger  
       this.directionsResults = result;
     })
   }

@@ -111,7 +111,7 @@ export class ToursComponent implements OnInit,OnDestroy {
 			(result: any) => {
         
         let today= new Date();
-        let todaysDataTime = formatDate(today, 'dd-MM-yyyy hh:mm:ss a', 'en-US', '+0530');
+        let todaysDataTime = formatDate(today, 'dd-MM-yyyy hh:mm:ss a', 'en-US');
 				this.tour_service.current_tour.start_date_time = todaysDataTime;
         this.tour_service.current_tour.start_odometer = this._odometer;
         this.tour_service.current_tour.veicle_route_id = this.employee_service.employee_info.vehicle_route_id
@@ -121,6 +121,14 @@ export class ToursComponent implements OnInit,OnDestroy {
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 			},
 		);
+  }
+
+  getDate(date:any){
+
+    if(date)
+     return formatDate(date,'dd-MM-yyyy hh:mm:ss a', 'en-US',)
+    else
+     return "";
   }
 
   boarding() {
@@ -152,9 +160,10 @@ export class ToursComponent implements OnInit,OnDestroy {
   }
 
   AddEmployee(content: TemplateRef<any>){
+    this.employee_number = "";
 		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
 			(result: any) => {
-        
+        debugger
         
         this.tour_service.addEmployee(this.employee_number,this.tour_service.current_tour.tour_id,this.employee_service.employee_info.vehicle_id);
 			},
@@ -193,7 +202,6 @@ export class ToursComponent implements OnInit,OnDestroy {
 	}
 
   getEmployeeNumber(employee_id:number) {
-    debugger
     let employee_number = this.tour_service.employee_tour_list.find(employee => employee.employee_id == employee_id)?.employee_number;
     return employee_number;
   }

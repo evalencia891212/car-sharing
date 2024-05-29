@@ -101,8 +101,8 @@
               <tbody>
                 <!-- <tr *ngFor="let tour of tour_service.tour_list"> -->
                    <tr>
-                          <td>{{tour_service.current_tour.start_date_time}}</td>
-                          <td>{{tour_service.current_tour.end_date_time}}</td>
+                          <td>{{getDate(tour_service.current_tour.start_date_time)}}</td>
+                          <td>{{getDate(tour_service.current_tour.end_date_time)}}</td>
                           <td>
                               <a class="btn btn-danger text-white" (click)="endTour(content)">
                                   <i class="fa fa-stop-circle"></i>
