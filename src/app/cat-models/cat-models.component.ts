@@ -37,7 +37,8 @@ export class CatModelsComponent implements OnInit {
     debugger
     try {
       if(this.models_service.selected_model.model_name)
-      if(this.models_service.selected_model.co2_emissions)
+       if(this.models_service.selected_model.model_year)
+        if(this.models_service.selected_model.performance)
            return false
     } catch (error) {
       return true;
