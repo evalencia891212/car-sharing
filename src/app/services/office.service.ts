@@ -81,11 +81,13 @@ export class OfficeService {
 
 }
 
+
+
 lastStationToOffice(){
   
   var directionsRenderer = new google.maps.DirectionsRenderer();
 
-  
+  debugger
   //var lastStationLatLng = this.station_service.markerStationPositions[ this.station_service.markerStationPositions.length - 1];
   var lastStationLatLng = this.station_service.markerStationPositionsByRute[this.station_service.markerStationPositionsByRute.length - 1];
   
@@ -114,6 +116,8 @@ lastStationToOffice(){
 })
 
 }
+
+
   twoStationsPath(origin:any,destination:any){
     
   var directionsRenderer = new google.maps.DirectionsRenderer();

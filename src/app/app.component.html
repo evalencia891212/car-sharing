@@ -1,9 +1,11 @@
 
 
 <app-sidebar [isExpanded]="sidebarExpanded" (toggleSidebar)="sidebarExpanded = !sidebarExpanded"></app-sidebar>
-<div class="content" style="margin-left: 250px" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
-  <b><label for="">Empleado: {{employee_service.employee_info.employee_name}}</label></b>&nbsp;
-  <b><label for="">Numero: {{employee_service.employee_info.employee_number}}</label></b>&nbsp;
-  <b><label *ngIf="employee_service.employee_info.vehicle_route_id" for="">Ruta: {{employee_service.employee_info.route_name}}</label></b>
+<div class="content" style="margin-left: 250px; margin-top: 50px;" [ngClass]="{ 'sidebarExpanded': sidebarExpanded }">
+
+  <h4 class="modal-title" id="modal-basic-title"><b><label for="">Empleado: {{employee_service.employee_info.employee_name}}</label></b> </h4> 
+  <h4 class="modal-title" id="modal-basic-title"><b><label for="">Numero: {{employee_service.employee_info.employee_number}}</label></b> </h4>
+  <h4  *ngIf="employee_service.employee_info.vehicle_route_id" class="modal-title" id="modal-basic-title"><b><label for="">Ruta: {{employee_service.employee_info.route_name}}</label></b> </h4>
+
   <router-outlet></router-outlet>
 </div>

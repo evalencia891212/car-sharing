@@ -33,6 +33,18 @@ export class CatModelsComponent implements OnInit {
     }
   }
 
+  public compleTeFields():boolean{
+    debugger
+    try {
+      if(this.models_service.selected_model.model_name)
+      if(this.models_service.selected_model.co2_emissions)
+           return false
+    } catch (error) {
+      return true;
+    }
+    return true;
+  }
+
   resetForm(vehicleForm?: NgForm)
   {
     if(vehicleForm != null)

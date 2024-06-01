@@ -13,7 +13,7 @@ import { StationService } from '../services/station.service';
   templateUrl: './station-sequence.component.html',
   styleUrls: ['./station-sequence.component.css']
 })
-export class StationSequenceComponent implements OnInit{
+export class StationSequenceComponent implements OnInit {
 
   @Input({ required: false }) tour_mode: boolean = false;
   @Input({ required: false }) tour_plan_mode: boolean = false;
@@ -21,6 +21,7 @@ export class StationSequenceComponent implements OnInit{
   @ViewChild('route_search') route_search!: ElementRef;
   @ViewChild('routeSelectList') routeSelectList!: ElementRef;
 
+  route_time!:string;
   public route_list:Route[]=[];
 
   stations_by_route_list: Station[] = [];
@@ -86,6 +87,8 @@ export class StationSequenceComponent implements OnInit{
 
   directionToOfice(){
   var lastStationLatLng = this.station_service.markerStationPositions[ this.station_service.markerStationPositions.length - 1];
+  debugger;
+   
   const request: google.maps.DirectionsRequest = {
     destination: {lat: this.office_service.office_lat_lng[0], lng: this.office_service.office_lat_lng[1]},
     origin: {lat: lastStationLatLng.lat, lng: lastStationLatLng.lng},
@@ -97,6 +100,8 @@ export class StationSequenceComponent implements OnInit{
       this.directionsResults = result;
     })
   }
+
+  
 
   setInputRoutesEvent() {
     
@@ -181,10 +186,39 @@ export class StationSequenceComponent implements OnInit{
          this.directionsResults = result;
          //this.calculateTotalDistanceToOfice();
          
-         this.calculateRouteDirection();
+          this.calculateRouteDirection();
+          debugger
+          let routeInfo:any = result;
+          let office_time = routeInfo.routes[0].legs[0].duration?.value / 60
+          let stations_time = this.calculateMinutedsDifference();
+          let total_route_time = office_time + stations_time;
+          this.route_time = total_route_time.toFixed(0) + '-min.'
          });
       }
     })
+  }
+
+
+
+ 
+
+  calculateMinutedsDifference(): number {
+    let stations = this.station_service.stations_list_route.filter(station=>station.marker_type=='station')
+    let startTime = stations[0].check_in;
+    let endTime=stations[stations.length - 1].check_in
+    let hours= parseInt(startTime.split(":")[0].replace("0",""))
+    let minutes=parseInt(startTime.split(":")[1].replace("0",""))
+    let start = new Date()
+    start.setHours(hours);
+    start.setMinutes(minutes)
+    const end = new Date();
+    let end_hours= parseInt(endTime.split(":")[0].replace("0",""))
+    let end_minutes=parseInt(endTime.split(":")[1].replace("0",""))
+    end.setHours(end_hours);
+    end.setMinutes(end_minutes);
+    const diffTime = Math.abs(end.getTime() - start.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60));
+    return diffDays;
   }
 
   calculateRouteDirection(){

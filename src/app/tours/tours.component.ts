@@ -236,52 +236,10 @@ export class ToursComponent implements OnInit,OnDestroy {
  }
 
 
-  /**
-* Abre el modal para asignar un empleado a la estacion
-*
-* Utilizado por el template 
-*/  
-  open(content: TemplateRef<any>,event?: any) {
-      
-    //if (employe != undefined)
-    //this.onEdit(employe);
-    //else
-    
-    if(event.station_name)
-      this.station_service.selected_station = event
-    else{
-      this.station_service.selected_station = new Station;
-    }
-      
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
-      (result: any) => {
-        this.closeResult = `Closed with: ${result}`;
-        
-        if(event.latLng) this.station_service.selected_station.location = event.latLng.toString().replace('(','').replace(')','');
-        this.addMarker(event,this.station_service.selected_station);
-      },
-      (reason: any) => {
-        this.refreshStationForm();
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      },
-    );
-  }
 
   refreshStationForm(){
     this.station_service.selected_station = new Station();
   }
-
-
-  async addMarker(event: google.maps.MapMouseEvent,station:Station ) {
-    
-    if (event.latLng != null)  this.station_service.markerStationPositions.push(event.latLng.toJSON());
-    
-    this.station_service.saveStation(station);
-   // await this.routeAsociation(station);
-    
-    this.refreshStationForm();
-  }
-
 
   getOption(index:number){
     return this.employeemarkerOptionsList[index];

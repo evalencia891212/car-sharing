@@ -91,6 +91,10 @@ drop(event: CdkDragDrop<string[]>) {
       this.getUserLocation();
     }
     this.setInputRoutesEvent();
+    if(this.selected_route != ""){
+      this.station_service.getStationsSequenceByRoute(this.route_service.selected_route.route_id);
+    this.station_service.getStationsByRoute(this.route_service.selected_route.route_id);
+    }
     
   }
 
@@ -205,12 +209,13 @@ drop(event: CdkDragDrop<string[]>) {
   }
 
   async addMarker(event: google.maps.MapMouseEvent,station:Station ) {
-    
-    if (event.latLng != null)  this.station_service.markerStationPositions.push(event.latLng.toJSON());
-    
-    this.station_service.saveStation(station);
+    debugger
+    if (event.latLng != null)  this.station_service.markerStationPositionsByRute.push(event.latLng.toJSON());
+    if(station.station_id == undefined)
+     this.station_service.saveStation(station,this.route_service.selected_route.route_id);
+    else
+     this.station_service.updateStation(station);
    // await this.routeAsociation(station);
-    
     this.refreshStationForm();
   }
 
@@ -225,6 +230,7 @@ drop(event: CdkDragDrop<string[]>) {
 
   refreshStationForm(){
     this.station_service.selected_station = new Station();
+    debugger
   }
 
   getOption(index:number){
@@ -290,9 +296,12 @@ drop(event: CdkDragDrop<string[]>) {
       this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
         (result: any) => {
           this.closeResult = `Closed with: ${result}`;
-          
+          debugger
           if(event.latLng) this.station_service.selected_station.location = event.latLng.toString().replace('(','').replace(')','');
+          debugger
           this.addMarker(event,this.station_service.selected_station);
+         
+            
         },
         (reason: any) => {
           this.refreshStationForm();

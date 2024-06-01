@@ -18,6 +18,7 @@ export class CatEmployeesComponent implements OnInit, AfterViewInit {
 
   @ViewChild('vehicle_search') vehicle_search!: ElementRef;
   @ViewChild('vehicleSearchList') vehicleSearchList!: ElementRef;
+  disable_save:boolean = false
 
   model: any;
   search:any
@@ -59,6 +60,19 @@ export class CatEmployeesComponent implements OnInit, AfterViewInit {
     this.resetForm();
   }
 
+  public compleTeFields():boolean{
+    debugger
+    try {
+      if(this.employe_service.calculating_geocode == false)
+      if(this.employe_service.selected_employee.employee_number)
+        if(this.employe_service.selected_employee.name)
+         
+           return false
+    } catch (error) {
+      return true;
+    }
+    return true;
+  }
  
   setInputVehicleEvent() {
     fromEvent(this.vehicle_search.nativeElement, 'keydown').pipe(

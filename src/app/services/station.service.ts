@@ -128,22 +128,26 @@ calculateDistanceToOffice(){
   
 }
 
- public saveStation(payload: Station) {
+ public saveStation(payload: Station,route_id:number) {
   
   payload.active = 1;
   payload.check_in = this.check_in.hour.toString().padStart(2,'00') + ":" + this.check_in.minute.toString().padStart(2,'00')
-  return this.httpClient.post('/stations/',payload).pipe(
+  return this.httpClient.post(environment.apiHost + '/stations/',payload).pipe(
     map(data => data as Station)
   ).pipe(
     map(message => message as any)
   ).subscribe(respose => {
       
       this.stations_list.push(respose[0]);
+      this.getStationsSequenceByRoute(route_id);
+      this.getStationsByRoute(route_id);
   });
   }
 
   public updateStation(payload: Station) {
     let station_id = payload.station_id;
+    payload.check_in = this.check_in.hour.toString().padStart(2,'00') + ":" + this.check_in.minute.toString().padStart(2,'00')
+    debugger;
     return this.httpClient.put(environment.apiHost + '/stations/' + station_id,payload).pipe(
       map(data => data as Station)
     ).pipe(
@@ -156,6 +160,7 @@ calculateDistanceToOffice(){
         station.station_name = response.station_name;
         station.location = response.location;
         station.marker_type = response.marker_type;
+        station.check_in=response.check_in;
         station.course = response.course;
        }
       })

@@ -146,5 +146,12 @@ export class RealFuelComponent implements OnInit {
     return diffDays;
   }
 
+  getStartDate(){
+    return this.start.year + "-" + ("0" + (this.start.month)).slice(-2) + "-" + ("0" + (this.start.day)).slice(-2);
+  }
+
+  getEndDate(){
+    return this.end.year + "-" + ("0" + (this.end.month)).slice(-2) + "-" + ("0" + (this.end.day)).slice(-2);
+  }
 
 }
