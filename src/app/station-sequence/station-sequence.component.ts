@@ -29,6 +29,7 @@ export class StationSequenceComponent implements OnInit {
    directionsResults$: Observable<google.maps.DirectionsResult | undefined> | undefined;
    directionsResults:any;
    pathDirectionsResults:any=[];
+   route_long!:number;
 
   display: any;
   center: google.maps.LatLngLiteral = {
@@ -185,9 +186,9 @@ export class StationSequenceComponent implements OnInit {
         this.office_service.lastStationToOffice().then(result =>{
          this.directionsResults = result;
          //this.calculateTotalDistanceToOfice();
-         
-          this.calculateRouteDirection();
-          debugger
+         debugger
+          this.calculateTotalDistanceRoute(result);
+          
           let routeInfo:any = result;
           let office_time = routeInfo.routes[0].legs[0].duration?.value / 60
           let stations_time = this.calculateMinutedsDifference();
@@ -272,8 +273,14 @@ export class StationSequenceComponent implements OnInit {
 
   calculateTotalDistanceRoute(results:any){
     let distance_office_km:number;
+    debugger
     distance_office_km =  results.routes[0].legs[0].distance?.value / 1000
-    this.station_service.route_long = this.station_service.route_long + distance_office_km
+    this.route_long = this.station_service.route_long + distance_office_km
+   
+  }
+
+  getRouteLong(){
+    return this.station_service.route_long
   }
 
   open(event?: any) {

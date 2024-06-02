@@ -174,25 +174,36 @@ export class CatEmployeesComponent implements OnInit, AfterViewInit {
   }
 
   openUser(content: TemplateRef<any>,employee:Employee) {
-    
-    if(employee.user_id) this.editUser();
-    else
+    debugger
     this.user_service.selected_employee_usser = new User();
+        this.user_service.getUserByEmployeeId(employee.employee_id).subscribe(user => {
+          if(user.length > 0){
+            this.user_service.selected_employee_usser.user_id = user[0].user_id
+            this.user_service.selected_employee_usser.user_name = user[0].user_name
+            this.user_service.selected_employee_usser.password = user[0].password
+            this.user_service.selected_employee_usser.typer_id = user[0].typer_id
+            this.openModal(content,employee);
+          }else{
+            this.openModal(content,employee);
+          }
+        })  
+	}
 
-
-		this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
+  openModal(content: TemplateRef<any>,employee:Employee) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' ,size: 'lg', backdrop: 'static' ,windowClass:'my-class'}).result.then(
 			(result: any) => {
 				this.closeResult = `Closed with: ${result}`;
         let user = this.user_service.selected_employee_usser
-        
-        this.user_service.createUser(user,employee.employee_id);
-        
+        if(user.user_id == 0)
+          this.user_service.createUser(user,employee.employee_id);
+        else
+          this.user_service.updatteUser(user);
 			},
 			(reason: any) => {
 				this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 			},
 		);
-	}
+  }
 
   onDelete(employee: Employee) {
     if(confirm('Desea eliminar a este empleado?')) {

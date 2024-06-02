@@ -62,6 +62,7 @@ export class ToursComponent implements OnInit,OnDestroy {
   ngOnInit(): void {
     
     if(this.user_service.userType==3){
+    debugger
     this.interval = setInterval(() => {
         this.employee_service.findDetailToBoarding(this.employee_service.employee_info.employee_id).subscribe(response =>{
           if(response.detail.length > 0){

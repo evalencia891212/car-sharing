@@ -29,6 +29,28 @@ export class UserService {
     });
   }
 
+  public updatteUser(payload :User){
+    debugger
+    this.httpClient.put(environment.apiHost +  '/user/',payload).pipe(
+     map(data => data as any)
+   ).pipe(
+     map(message => message as any)
+   ).subscribe(respose => {
+      if(respose.message == "ok"){
+        alert("El usuario se actualizo con exito!")
+      }
+      console.log("Succes:" + respose);
+   });
+ }
+
+  public getUserByEmployeeId(employee_id:number):Observable<any>{
+    return this.httpClient.get(environment.apiHost +  '/UserByEmployeeId/'+employee_id).pipe(
+      map(data => data as any)
+    ).pipe(
+      map(message => message as any)
+    )
+  }
+
 
 
 

@@ -17,8 +17,8 @@
      <div  class="row">
         <div class="col-md-8" style="margin-top: 30px;">
       
-            <google-map id="map" height="700px" *ngIf="selected_route != ''"
-                    width="1100px"
+            <google-map id="map" height="600px" *ngIf="selected_route != ''"
+                    width="900px"
                     [center]="center"
                     [zoom]="zoom"
                     (mapClick)="open($event)"
@@ -36,7 +36,7 @@
           </google-map>
          
           <div class="col-3">
-            <b><label>Largo de la ruta: {{station_service.route_long}}</label></b>
+            <b><label>Largo de la ruta: {{route_long}}</label></b>
             <b><label>Duración de la ruta: {{route_time}}</label></b>
           </div>
         </div>

@@ -39,9 +39,9 @@ const routes: Routes = [
   {path:'app-stations', component: StationsComponent, canActivate:[AdminAuthGuard]},
   {path:'app-routes-list', component:CatRoutesComponent, canActivate:[AdminAuthGuard]},
   {path:'tour',component:ToursComponent, canActivate:[AuthGuard]},
-  {path:'app-global-emissions',component:GlobalEmissionsComponent, canActivate:[AuthGuard]},
-  {path:'app-real-emissions',component:RealEmissionsComponent, canActivate:[AuthGuard]},
-  {path:'app-real-fuel',component:RealFuelComponent, canActivate:[AuthGuard]}
+  {path:'app-global-emissions',component:GlobalEmissionsComponent, canActivate:[AdminAuthGuard]},
+  {path:'app-real-emissions',component:RealEmissionsComponent, canActivate:[AdminAuthGuard]},
+  {path:'app-real-fuel',component:RealFuelComponent, canActivate:[AdminAuthGuard]}
 ];
 
 

@@ -88,6 +88,7 @@ public getStationsByRoute(route_id:number){
 }
 
 calculateRouteLong(){
+  debugger
   let firstMarker:  google.maps.LatLngLiteral = {lat:0,lng:0};
   let secondMarker: google.maps.LatLngLiteral = {lat:0,lng:0};
   let routeDistance = 0;

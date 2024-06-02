@@ -163,6 +163,7 @@ export class EmployeeService {
     ).pipe(
       map(message => message as any)
     ).subscribe(response => {
+      debugger
       this.employee_info = response[0];
     });
   }
